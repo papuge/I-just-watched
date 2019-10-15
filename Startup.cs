@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using IJustWatched.Data;
@@ -66,6 +67,10 @@ namespace IJustWatched
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
+            var cultureInfo = new CultureInfo(CultureInfo.CurrentCulture.Name);
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace IJustWatched.Data
         public DbSet<Director> Directors { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<SubscriptionJoin> Subscriptions { get; set; }
+        public DbSet<Subscriptions> Subscriptions { get; set; }
         public DbSet<TagReviewJoin> TagsReviews { get; set; }
         public DbSet<LikeReviewJoin> LikesReviews { get; set; }
     }
