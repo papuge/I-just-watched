@@ -9,6 +9,7 @@
       <e p="appsettings.json" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
+        <e p="AccountController.cs" t="Include" />
         <e p="CommentController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
         <e p="ReviewController.cs" t="Include" />
@@ -21,8 +22,20 @@
       <e p="IJustWatched.csproj" t="IncludeRecursive" />
       <e p="IJustWatched.sln" t="IncludeFlat" />
       <e p="IJW.db" t="Include" />
+      <e p="Migrations" t="Include">
+        <e p="20191016072123_InitialCreate.cs" t="Include" />
+        <e p="20191016072123_InitialCreate.Designer.cs" t="Include" />
+        <e p="IJustWatchedContextModelSnapshot.cs" t="Include" />
+      </e>
       <e p="Models" t="Include">
+        <e p="Authentication" t="Include">
+          <e p="LoginModel.cs" t="Include" />
+          <e p="RegisterModel.cs" t="Include" />
+        </e>
         <e p="Comment.cs" t="Include" />
+        <e p="CustomAttributes" t="Include">
+          <e p="BirthDateRangeAttribute.cs" t="Include" />
+        </e>
         <e p="Director.cs" t="Include" />
         <e p="ErrorViewModel.cs" t="Include" />
         <e p="Film.cs" t="Include" />
@@ -51,6 +64,9 @@
       <e p="Views" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
+        <e p="Account" t="Include">
+          <e p="Register.cshtml" t="Include" />
+        </e>
         <e p="Comment" t="Include">
           <e p="Index.cshtml" t="Include" />
         </e>
