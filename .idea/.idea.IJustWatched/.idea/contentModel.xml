@@ -10,11 +10,8 @@
       <e p="bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
         <e p="CommentController.cs" t="Include" />
-        <e p="FilmController.cs" t="Include" />
-        <e p="FilmsController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
         <e p="ReviewController.cs" t="Include" />
-        <e p="ReviewsController.cs" t="Include" />
         <e p="UserController.cs" t="Include" />
       </e>
       <e p="Data" t="Include">
@@ -24,11 +21,6 @@
       <e p="IJustWatched.csproj" t="IncludeRecursive" />
       <e p="IJustWatched.sln" t="IncludeFlat" />
       <e p="IJW.db" t="Include" />
-      <e p="Migrations" t="Include">
-        <e p="20191014143818_InitialCreate.cs" t="Include" />
-        <e p="20191014143818_InitialCreate.Designer.cs" t="Include" />
-        <e p="IJustWatchedContextModelSnapshot.cs" t="Include" />
-      </e>
       <e p="Models" t="Include">
         <e p="Comment.cs" t="Include" />
         <e p="Director.cs" t="Include" />
@@ -37,7 +29,7 @@
         <e p="LikeReviewJoin.cs" t="Include" />
         <e p="Review.cs" t="Include" />
         <e p="SeedData.cs" t="Include" />
-        <e p="SubscriptionJoin.cs" t="Include" />
+        <e p="Subscriptions.cs" t="Include" />
         <e p="Tag.cs" t="Include" />
         <e p="TagReviewJoin.cs" t="Include" />
         <e p="User.cs" t="Include" />
@@ -62,20 +54,6 @@
         <e p="Comment" t="Include">
           <e p="Index.cshtml" t="Include" />
         </e>
-        <e p="Film" t="Include">
-          <e p="Create.cshtml" t="Include" />
-          <e p="Delete.cshtml" t="Include" />
-          <e p="Details.cshtml" t="Include" />
-          <e p="Edit.cshtml" t="Include" />
-          <e p="Index.cshtml" t="Include" />
-        </e>
-        <e p="Films" t="Include">
-          <e p="Create.cshtml" t="Include" />
-          <e p="Delete.cshtml" t="Include" />
-          <e p="Details.cshtml" t="Include" />
-          <e p="Edit.cshtml" t="Include" />
-          <e p="Index.cshtml" t="Include" />
-        </e>
         <e p="Home" t="Include">
           <e p="Details.cshtml" t="Include" />
           <e p="Index.cshtml" t="Include" />
@@ -84,13 +62,6 @@
         <e p="Review" t="Include">
           <e p="Index.cshtml" t="Include" />
           <e p="Show.cshtml" t="Include" />
-        </e>
-        <e p="Reviews" t="Include">
-          <e p="Create.cshtml" t="Include" />
-          <e p="Delete.cshtml" t="Include" />
-          <e p="Details.cshtml" t="Include" />
-          <e p="Edit.cshtml" t="Include" />
-          <e p="Index.cshtml" t="Include" />
         </e>
         <e p="Shared" t="Include">
           <e p="_Layout.cshtml" t="Include" />

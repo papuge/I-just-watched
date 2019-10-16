@@ -13,7 +13,7 @@ namespace IJustWatched.Models
         public User SubscriptionUser { get; set; }
         
         // TODO: check for correctness
-        public async Task<ICollection<User>> GetUserSubscriptions(IJustWatchedContext context, int userId)
+        public async Task<ICollection<User>> GetUserSubscriptions(IJustWatchedContext context, string userId)
         {
             var users = from user in context.Subscriptions select user;
             var subscriptions = users.Where(user => user.SubscriberUser.Id == userId)
@@ -21,7 +21,7 @@ namespace IJustWatched.Models
             return await subscriptions.ToListAsync();
         }
         
-        public async Task<ICollection<User>> GetUserSubscribers(IJustWatchedContext context, int userId)
+        public async Task<ICollection<User>> GetUserSubscribers(IJustWatchedContext context, string userId)
         {
             var users = from user in context.Subscriptions select user;
             var subscriptions = users.Where(user => user.SubscriptionUser.Id == userId)

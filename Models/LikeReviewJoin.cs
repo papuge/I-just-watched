@@ -23,7 +23,7 @@ namespace IJustWatched.Models
         }
         
         public async Task<ICollection<Review>> GetLikedReviews(IJustWatchedContext context,
-            int userId)
+            string userId)
         {
             var rows = from row in context.LikesReviews select row;
             var likedReviews = rows.Where(row => row.LikedByUser.Id == userId)

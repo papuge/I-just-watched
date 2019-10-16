@@ -17,7 +17,6 @@ namespace IJustWatched.Controllers
         {
             var review = new Review()
             {
-                Author = new User() { Username = "joji" },
                 CreationDateTime = DateTime.Now,
                 Comments = new List<Comment>(),
                 Content = "Some badass stuff, but cool",
