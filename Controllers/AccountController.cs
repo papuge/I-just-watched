@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using IJustWatched.Models;
-using IJustWatched.Models.Authentication;
+using IJustWatched.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

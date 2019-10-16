@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using IJustWatched.Models.CustomAttributes;
 
-namespace IJustWatched.Models.Authentication
+namespace IJustWatched.ViewModels
 {
     public class RegisterViewModel
     {

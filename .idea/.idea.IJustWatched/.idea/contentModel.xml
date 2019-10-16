@@ -13,6 +13,7 @@
         <e p="CommentController.cs" t="Include" />
         <e p="HomeController.cs" t="Include" />
         <e p="ReviewController.cs" t="Include" />
+        <e p="RolesController.cs" t="Include" />
         <e p="UserController.cs" t="Include" />
       </e>
       <e p="Data" t="Include">
@@ -57,11 +58,10 @@
       </e>
       <e p="README.md" t="Include" />
       <e p="Startup.cs" t="Include" />
-      <e p="ViewModel" t="Include">
-        <e p="Account" t="Include">
-          <e p="LoginViewModel.cs" t="Include" />
-          <e p="RegisterViewModel.cs" t="Include" />
-        </e>
+      <e p="ViewModels" t="Include">
+        <e p="ChangeRoleViewModel.cs" t="Include" />
+        <e p="LoginViewModel.cs" t="Include" />
+        <e p="RegisterViewModel.cs" t="Include" />
       </e>
       <e p="Views" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
@@ -81,6 +81,12 @@
         <e p="Review" t="Include">
           <e p="Index.cshtml" t="Include" />
           <e p="Show.cshtml" t="Include" />
+        </e>
+        <e p="Roles" t="Include">
+          <e p="Create.cshtml" t="Include" />
+          <e p="Edit.cshtml" t="Include" />
+          <e p="Index.cshtml" t="Include" />
+          <e p="UserList.cshtml" t="Include" />
         </e>
         <e p="Shared" t="Include">
           <e p="_Layout.cshtml" t="Include" />

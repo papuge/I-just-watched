@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace IJustWatched.Models.Authentication
+namespace IJustWatched.ViewModels
 {
     public class LoginViewModel
     {
