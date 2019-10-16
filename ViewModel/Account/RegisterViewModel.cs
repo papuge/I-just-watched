@@ -4,7 +4,7 @@ using IJustWatched.Models.CustomAttributes;
 
 namespace IJustWatched.Models.Authentication
 {
-    public class RegisterModel
+    public class RegisterViewModel
     {
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",

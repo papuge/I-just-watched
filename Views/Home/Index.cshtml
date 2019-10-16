@@ -3,5 +3,18 @@
 }
 
 <div class="text-center">
-   <h4>Hello, @ViewData["Name"]! Welcome to "I Just Watched"</h4>
+   @if(User.Identity.IsAuthenticated)
+   {
+       <p>Hello, @User.Identity.Name!</p>
+    
+       <form method="post" asp-controller="Account" asp-action="LogOff">
+           <input type="submit" value="Log off" />
+       </form>
+   }
+   else
+   {
+       <a asp-controller="Account" asp-action="Login">Login</a>
+       <hr/>
+       <a asp-controller="Account" asp-action="Register">Sign up</a>
+   }
 </div>

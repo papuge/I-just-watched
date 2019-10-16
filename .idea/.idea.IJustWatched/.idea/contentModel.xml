@@ -28,10 +28,6 @@
         <e p="IJustWatchedContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
-        <e p="Authentication" t="Include">
-          <e p="LoginModel.cs" t="Include" />
-          <e p="RegisterModel.cs" t="Include" />
-        </e>
         <e p="Comment.cs" t="Include" />
         <e p="CustomAttributes" t="Include">
           <e p="BirthDateRangeAttribute.cs" t="Include" />
@@ -61,10 +57,17 @@
       </e>
       <e p="README.md" t="Include" />
       <e p="Startup.cs" t="Include" />
+      <e p="ViewModel" t="Include">
+        <e p="Account" t="Include">
+          <e p="LoginViewModel.cs" t="Include" />
+          <e p="RegisterViewModel.cs" t="Include" />
+        </e>
+      </e>
       <e p="Views" t="Include">
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
         <e p="Account" t="Include">
+          <e p="Login.cshtml" t="Include" />
           <e p="Register.cshtml" t="Include" />
         </e>
         <e p="Comment" t="Include">
