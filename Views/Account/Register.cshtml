@@ -11,7 +11,7 @@
 
 <body>
 <div class="form-group col-md-6 mb-0 container">
-    <form class="form-group m-5 p-5" method="post" asp-controller="Account" asp-action="Register">
+    <form class="form-group m-5 md-3 p-5" method="post" asp-controller="Account" asp-action="Register">
         <div class="ml-2 mr-2 mt-4 text-center"></div>
         <h2 class="h3 font-weight-normal">Sign up</h2>
         <div asp-validation-summary="ModelOnly" style="color:red"></div>
@@ -40,6 +40,9 @@
             <span asp-validation-for="PasswordConfirm" style="color:red"></span>
         </div>
         <button class="mt-3 btn btn-lg btn-primary btn-block" type="submit" width="300px">Sign in</button>
+        <div class="mt-4">
+            <a asp-controller="Account" asp-action="Login">Back to login</a>
+        </div>
     </form>
 </div>
 </body>

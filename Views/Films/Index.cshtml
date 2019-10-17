@@ -1,0 +1,20 @@
+
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<body>
+<div class="album py-5 bg-light">
+    <h2 style="text-align: center">Films</h2>    
+    <div class="container">
+        <div class="row">
+            @for (var i = 0; i < 12; i++)
+            {
+                <partial name="_FilmCard"/>
+            }
+        </div>
+    </div>
+</div>
+</body>

@@ -83,7 +83,7 @@ namespace IJustWatched.Controllers
  
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOff()
+        public async Task<IActionResult> Logoff()
         {
             // delete auth cookies
             await _signInManager.SignOutAsync();

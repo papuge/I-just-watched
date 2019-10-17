@@ -26,6 +26,7 @@
       <_ContentIncludedByDefault Remove="Views\Reviews\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Reviews\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Reviews\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\FilmsContoller\Index.cshtml" />
     </ItemGroup>
 
 </Project>
