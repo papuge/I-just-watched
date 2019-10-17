@@ -8,7 +8,7 @@ namespace IJustWatched.ViewModels
     {
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
-            ErrorMessage = "Field doesn't math email address'")]
+            ErrorMessage = "Field doesn't math email address.'")]
         public string Email { get; set; }
  
         [Required]
@@ -22,7 +22,7 @@ namespace IJustWatched.ViewModels
         public string Password { get; set; }
  
         [Required]
-        [Compare("Password", ErrorMessage = "Passwords do not match")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         [DataType(DataType.Password)]
         [Display(Name = "Repeat password")]
         public string PasswordConfirm { get; set; }

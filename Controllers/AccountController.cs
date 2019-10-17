@@ -75,7 +75,7 @@ namespace IJustWatched.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid email or password");
+                    ModelState.AddModelError("", "Invalid email or password.");
                 }
             }
             return View(viewModel);
