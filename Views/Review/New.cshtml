@@ -1,0 +1,31 @@
+@model object
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+<form>
+<div class="col-md-4  col-md-offset-4">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tags">
+    </div>
+    <div class="sui-editor sui-editor-default"><div class="sui-editor-toolbar">
+            <div class="sui-editor-toolbar-group"><span class="sui-dropdown sui-editor-toolbar-item sui-editor-toolbar-select" tabindex="0" role="combobox"><select style="display: none;"><option value="p" selected="selected">Paragraph</option><option value="blockquote">Quotation</option><option value="h1">Heading 1</option><option value="h2">Heading 2</option><option value="h3">Heading 3</option><option value="h4">Heading 4</option><option value="h5">Heading 5</option><option value="h6">Heading 6</option></select><span class="sui-input sui-unselectable" unselectable="on">Paragraph</span><span class="sui-caret-container sui-unselectable" unselectable="on"><span class="sui-caret sui-unselectable" unselectable="on"></span></span></span></div>
+            <div class="sui-editor-toolbar-group"><button type="button" title="Bold" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button" aria-pressed="false"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-bold">&nbsp;</span></button><button type="button" title="Italic" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button" aria-pressed="false"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-italic">&nbsp;</span></button><button type="button" title="Underline" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button" aria-pressed="false"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-underline">&nbsp;</span></button></div>
+            <div class="sui-editor-toolbar-group"><button type="button" title="Align text left" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button" aria-pressed="false"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-justifyleft">&nbsp;</span></button><button type="button" title="Center text" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button" aria-pressed="false"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-justifycenter">&nbsp;</span></button><button type="button" title="Align text right" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button" aria-pressed="false"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-justifyright">&nbsp;</span></button></div>
+            <div class="sui-editor-toolbar-group"><button type="button" title="Insert unordered list" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-insertunorderedlist">&nbsp;</span></button><button type="button" title="Insert ordered list" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-insertorderedlist">&nbsp;</span></button></div>
+            <div class="sui-editor-toolbar-group"><button type="button" title="Insert hyperlink" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-createlink">&nbsp;</span></button><button type="button" title="Remove hyperlink" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-unlink">&nbsp;</span></button></div>
+            <div class="sui-editor-toolbar-group"><button type="button" title="Insert image" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-insertimage">&nbsp;</span></button></div>
+            <div class="sui-editor-toolbar-group"><button type="button" title="About" class="sui-button sui-editor-toolbar-item sui-editor-toolbar-button" role="button"><span class="sui-editor-toolbar-icon sui-editor-toolbar-icon-about">&nbsp;</span></button></div></div><textarea id="editor" cols="30" rows="10" style="display: none;">Submit your text post here...</textarea><iframe class="sui-editor-iframe" frameborder="0" height="260"></iframe>
+    </div>
+    <br>
+    <div class="form-group">
+        <button class="btn btn-primary" id="submit">Submit new post</button>
+    </div>
+</div>
+</form>
