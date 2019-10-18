@@ -13,7 +13,8 @@ namespace IJustWatched.Models
         [Display(Name = "Release date")]
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
-        [Required]
-        public ICollection<Director> Directors { get; set; }
+        public string PosterURL { get; set; }
+        [Required, MaxLength(100)]
+        public string Directors { get; set; }
     }
 }

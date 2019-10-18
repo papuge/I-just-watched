@@ -32,5 +32,6 @@ namespace IJustWatched.Controllers
         {
             return View();
         }
+        
     }
 }

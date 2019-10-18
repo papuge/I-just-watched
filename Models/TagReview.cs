@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IJustWatched.Models
 {
-    public class TagReviewJoin
+    public class TagReview
     {
         public int Id { get; set; }
         public Review TaggedReview { get; set; }

@@ -1,4 +1,4 @@
-
+@model IEnumerable<IJustWatched.Models.Film>
 
 @{
     ViewBag.Title = "title";
@@ -10,9 +10,9 @@
     <h2 style="text-align: center">Films</h2>    
     <div class="container">
         <div class="row">
-            @for (var i = 0; i < 12; i++)
+            @foreach (var film in Model)
             {
-                <partial name="_FilmCard"/>
+                <partial name="_FilmCard" model="@film"/>
             }
         </div>
     </div>

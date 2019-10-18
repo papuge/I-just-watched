@@ -3,20 +3,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using IJustWatched.Models;
 using IJustWatched.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IJustWatched.Controllers
 {
+    [Authorize(Roles="admin")]
     public class RolesController: Controller
     {
         RoleManager<IdentityRole> _roleManager;
         UserManager<User> _userManager;
+        SignInManager<User> _signInManager;
         
-        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         
         public IActionResult Index()
@@ -103,6 +108,8 @@ namespace IJustWatched.Controllers
                 await _userManager.AddToRolesAsync(user, addedRoles);
  
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
+                
+                await _signInManager.RefreshSignInAsync(user);
  
                 return RedirectToAction("UserList");
             }
