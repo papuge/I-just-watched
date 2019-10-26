@@ -108,8 +108,9 @@ namespace IJustWatched.Controllers
                 await _userManager.AddToRolesAsync(user, addedRoles);
  
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
-                
-                await _signInManager.RefreshSignInAsync(user);
+
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                await _signInManager.RefreshSignInAsync(currentUser);
  
                 return RedirectToAction("UserList");
             }

@@ -1,0 +1,23 @@
+@model IJustWatched.Models.Film
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2 class="mb-2">@Model.Title</h2>
+<h4 class="mb-3">by @Model.Directors</h4>
+<div class="row">
+    <div class="col-md-3">
+        <img class="img-fluid rounded" src="@Model.PosterURL" width="200" height="300" alt="">
+    </div>
+    <div class="col-md-3">
+        <h4>Release date: @Model.ReleaseDate.ToString("dd/MM/yyyy")</h4>
+    </div>
+</div>
+<hr/>
+@if (@Model.PosterURL != null)
+{
+    <iframe width="560" height="315" src="@Model.TrailerURL" allowfullscreen=""></iframe>
+}
+

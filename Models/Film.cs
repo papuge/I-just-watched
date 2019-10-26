@@ -16,5 +16,6 @@ namespace IJustWatched.Models
         public string PosterURL { get; set; }
         [Required, MaxLength(100)]
         public string Directors { get; set; }
+        public string TrailerURL { get; set; }
     }
 }

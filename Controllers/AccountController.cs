@@ -28,7 +28,8 @@ namespace IJustWatched.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = viewModel.Email, UserName = viewModel.Email, BirthdayDate= viewModel.BirthdayDate};
+                User user = new User { Email = viewModel.Email, UserName = viewModel.Email, 
+                    BirthdayDate = viewModel.BirthdayDate};
                 // get result of user create operation
                 var result = await _userManager.CreateAsync(user, viewModel.Password);
                 if (result.Succeeded)

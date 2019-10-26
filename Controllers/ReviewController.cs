@@ -1,37 +1,63 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using IJustWatched.Data;
 using IJustWatched.Models;
+using IJustWatched.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IJustWatched.Controllers
 {
     public class ReviewController : Controller
     {
+        private readonly IJustWatchedContext _context;
+        private readonly UserManager<User> _userManager;
+
+        public ReviewController(IJustWatchedContext context, UserManager<User> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
         // GET
         public IActionResult Index()
         {
             return View();
         }
-        // actions
-        public IActionResult Show()
+        // GET
+        public IActionResult New(string filmTitle = null)
         {
-            var review = new Review()
-            {
-                CreationDateTime = DateTime.Now,
-                Comments = new List<Comment>(),
-                Content = "Some badass stuff, but cool",
-                ReviewFilm = new Film() { Title = "Hateful Eight"}
-            };
-            return View(review);
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult New()
-        {
+            ViewData["filmTitle"] = filmTitle;
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> New(ReviewViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Review review = new Review
+                {
+                    Author = await GetCurrentUserAsync(),
+                    Content = viewModel.ReviewText,
+                    CreationDateTime = DateTime.Now,
+                    ReviewTitle = viewModel.Title,
+                    ReviewFilm = _context.Films.First(film => film.Title.Equals(viewModel.FilmTitle, 
+                        StringComparison.OrdinalIgnoreCase))
+                };
+                _context.Reviews.Add(review);
+                _context.SaveChanges();
+            }
+            return View(viewModel);
+        }
+        
+        private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         
     }
 }
