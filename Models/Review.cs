@@ -23,7 +23,6 @@ namespace IJustWatched.Models
         
         [Required, MinLength(5), MaxLength(4000)]
         public string Content { get; set; }
-        public ICollection<TagReview> TagReview { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<User> Likes { get; set; }
     }

@@ -34,6 +34,12 @@
             <span asp-validation-for="Email" style="color:red"></span>
         </div>
         <div class="mt-3 form-label-group">
+            <label asp-for="Username" for="inputUsername" class="sr-only"></label>
+            <input asp-for="Username" class="form-control" id="inputUsername"
+                   placeholder="Username">
+            <span asp-validation-for="Username" style="color:red"></span>
+        </div>
+        <div class="mt-3 form-label-group">
             <label asp-for="BirthdayDate" class="sr-only"></label>
             <input asp-for="BirthdayDate" type="date" class="form-control"
                    placeholder="Birthday"/>

@@ -82,19 +82,19 @@ namespace IJustWatched.Models
                         new User()
                         {
                             Email = "veronika@mail.ru",
-                            UserName = "veronika@mail.ru",
+                            UserName = "coose",
                             BirthdayDate = DateTime.Now,
                         },
                         new User()
                         {
                             Email = "sss@gmail.com",
-                            UserName = "sss@gmail.com",
+                            UserName = "goblinn",
                             BirthdayDate = DateTime.Now,
                         },
                         new User()
                         {
                             Email = "muser@gmail.com",
-                            UserName = "muser@gmail.com",
+                            UserName = "muser",
                             BirthdayDate = DateTime.Now,
                         },
                     };

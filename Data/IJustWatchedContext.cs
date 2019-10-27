@@ -16,5 +16,7 @@ namespace IJustWatched.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagReview> TagsReviews { get; set; }
+        public DbSet<LikeReview> LikesReviews { get; set; }
+        public DbSet<Subscriptions> Subscriptions { get; set; }
     }
 }

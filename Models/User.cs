@@ -10,6 +10,5 @@ namespace IJustWatched.Models
     {
         [DataType(DataType.Date)]
         public DateTime BirthdayDate { get; set; }
-        public ICollection<User> Subscriptions { get; set; }
     }
 }

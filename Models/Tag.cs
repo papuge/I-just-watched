@@ -8,8 +8,6 @@ namespace IJustWatched.Models
         public int Id { get; set; }
         [Required, MinLength(2), MaxLength(20)]
         public string TagText { get; set; }
-        
-        public ICollection<TagReview> TagReview { get; set; }
 
         public override string ToString()
         {

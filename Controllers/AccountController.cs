@@ -28,7 +28,7 @@ namespace IJustWatched.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = viewModel.Email, UserName = viewModel.Email, 
+                User user = new User { Email = viewModel.Email, UserName = viewModel.Username, 
                     BirthdayDate = viewModel.BirthdayDate};
                 // get result of user create operation
                 var result = await _userManager.CreateAsync(user, viewModel.Password);
@@ -61,8 +61,20 @@ namespace IJustWatched.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = 
-                    await _signInManager.PasswordSignInAsync(viewModel.Email, viewModel.Password, viewModel.RememberMe, false);
+                var user = await _userManager.FindByEmailAsync(viewModel.EmailOrUsername);
+                Microsoft.AspNetCore.Identity.SignInResult result = null;
+                if (user != null)
+                {
+                    // Username was entered at login form
+                    result = await _signInManager.PasswordSignInAsync(user.UserName, 
+                        viewModel.Password, viewModel.RememberMe, false);
+                }
+                else
+                {
+                    // Username was entered at login form
+                    result = await _signInManager.PasswordSignInAsync(viewModel.EmailOrUsername,
+                        viewModel.Password, viewModel.RememberMe, false);
+                }
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(viewModel.ReturnUrl) && Url.IsLocalUrl(viewModel.ReturnUrl))

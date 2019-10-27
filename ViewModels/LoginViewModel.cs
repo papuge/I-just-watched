@@ -5,8 +5,8 @@ namespace IJustWatched.ViewModels
     public class LoginViewModel
     {
         [Required]
-        public string Email { get; set; }
-         
+        public string EmailOrUsername { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }

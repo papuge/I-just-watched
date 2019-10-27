@@ -10,6 +10,9 @@ namespace IJustWatched.ViewModels
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
             ErrorMessage = "Field doesn't math email address.'")]
         public string Email { get; set; }
+        
+        [Required]
+        public string Username { get; set; }
  
         [Required]
         [DataType(DataType.Date)]
