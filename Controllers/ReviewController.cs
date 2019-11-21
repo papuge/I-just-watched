@@ -25,9 +25,13 @@ namespace IJustWatched.Controllers
             _userManager = userManager;
         }
         // GET
-        public IActionResult Index()
+        public IActionResult Index(int reviewId)
         {
-            return View();
+            var review = _context.Reviews.Where(item => item.Id == reviewId)
+                                         .Include(r => r.Author)
+                                         .Include(r => r.ReviewFilm)
+                                         .First();
+            return View(review);
         }
         // GET
         public IActionResult New(string filmTitle = null)
@@ -51,8 +55,9 @@ namespace IJustWatched.Controllers
                     ReviewFilm = _context.Films.First(film => film.Title.Equals(viewModel.FilmTitle, 
                         StringComparison.OrdinalIgnoreCase))
                 };
-                _context.Reviews.Add(review);
+                _context.Add(review);
                 _context.SaveChanges();
+                return RedirectToAction("Index", "Review", new { reviewId = review.Id});
             }
             return View(viewModel);
         }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Westwind.AspNetCore.Markdown;
 
 
 namespace IJustWatched
@@ -44,7 +45,10 @@ namespace IJustWatched
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<IJustWatchedContext>();
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMarkdown();
+            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddApplicationPart(typeof(MarkdownPageProcessorMiddleware).Assembly);
             
         }
 
@@ -66,6 +70,7 @@ namespace IJustWatched
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseMarkdown();
 
             app.UseMvc(routes =>
             {

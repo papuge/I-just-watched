@@ -77,6 +77,12 @@ namespace IJustWatched.Models
                 if (!context.Users.Any())
                 {
                     var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+                    using (var roleContext = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>())
+                    {
+                        roleContext.CreateAsync(new IdentityRole("admin"));
+                        roleContext.CreateAsync(new IdentityRole("moderator"));
+                        roleContext.CreateAsync(new IdentityRole("user"));
+                    }
                     var users = new List<User>()
                     {
                         new User()
@@ -98,12 +104,18 @@ namespace IJustWatched.Models
                             BirthdayDate = DateTime.Now,
                         },
                     };
-                    foreach (var user in users)
-                    {
-                        userManager.CreateAsync(user, "Qwerty_9");
-                    }
 
-                    userManager.AddToRoleAsync(users[0], "admin");
+                    var admin = userManager.CreateAsync(users[0], "Qwerty_9");
+                    var moderator = userManager.CreateAsync(users[1], "Mo_1234");
+                    var user = userManager.CreateAsync(users[2], "Us_1234");
+
+                    if (admin.IsCompletedSuccessfully && moderator.IsCompletedSuccessfully
+                                                      && user.IsCompletedSuccessfully)
+                    {
+                        userManager.AddToRoleAsync(users[0], "admin");
+                        userManager.AddToRoleAsync(users[1], "moderator");
+                        userManager.AddToRoleAsync(users[2], "user");
+                    }
                     context.SaveChanges();
                 }
             }

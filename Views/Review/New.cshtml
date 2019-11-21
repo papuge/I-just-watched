@@ -21,7 +21,9 @@
         <hr>
         @if (ViewData["filmTitle"] != null)
         {
-            <p>@ViewData["filmTitle"]</p>
+            <textarea readonly asp-for="FilmTitle" rows="1" style="resize: none;">
+                @ViewData["filmTitle"]
+            </textarea>
         }
         else
         {

@@ -16,8 +16,19 @@
     </div>
 </div>
 <hr/>
-@if (@Model.PosterURL != null)
+@if (@Model.TrailerURL != null)
 {
     <iframe width="560" height="315" src="@Model.TrailerURL" allowfullscreen=""></iframe>
+    <hr>
+}
+@{
+    if (ViewData["Reviews"] is IEnumerable<Review> reviews)
+    {
+        <h3>Related reviews:</h3>
+        foreach (var r in reviews)
+        {
+            <partial name="_ReviewDemo" model="@r"/>
+        }
+    }
 }
 
