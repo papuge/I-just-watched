@@ -1,0 +1,16 @@
+@model IEnumerable<Comment>
+
+@foreach (var comment in @Model)
+{
+    <div class="media mb-4">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+            <h5 class="mt-0"><a href="">@comment.Author</a></h5>
+            <p>on @comment.CreationDateTime.ToString("dd-MM-yyyy")<p/>
+            <p>
+                @comment.Content
+            </p>
+        </div>
+    </div>
+}
+

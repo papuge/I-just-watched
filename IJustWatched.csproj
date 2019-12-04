@@ -12,6 +12,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+        <PackageReference Include="westwind.aspnetcore.markdown" Version="3.3.0" />
     </ItemGroup>
 
 
@@ -27,6 +28,12 @@
       <_ContentIncludedByDefault Remove="Views\Reviews\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Reviews\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\FilmsContoller\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Review\Components\Comment\_Comments.cshtml" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="Pages" />
     </ItemGroup>
 
 </Project>

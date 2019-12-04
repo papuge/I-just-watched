@@ -31,13 +31,7 @@
 
         <!-- Comments Form -->
         <partial name="_NewComment"/>
-
-        <!-- Single Comment -->
-        @if (Model.Comments != null) {
-            foreach (var comment in Model.Comments)
-            {
-              <partial name="_Comment"/>
-            }
-        }
+        
+        @await Component.InvokeAsync("Comments", new { reviewId = @Model.Id })
 
 </div>

@@ -30,6 +30,7 @@ namespace IJustWatched.Controllers
             var review = _context.Reviews.Where(item => item.Id == reviewId)
                                          .Include(r => r.Author)
                                          .Include(r => r.ReviewFilm)
+                                         .Include(r => r.Comments)
                                          .First();
             return View(review);
         }

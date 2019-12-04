@@ -1,13 +1,18 @@
 @model IJustWatched.Models.Review
 
-<div class="media mb-4">
-    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-    <div class="media-body">
-        <h4 class="mt-0">@Model.Author.UserName</h4>
-        <a class="mb-2" asp-controller="Review" asp-action="Index" 
-           asp-route-reviewId="@Model.Id">
-            <i> on @Model.CreationDateTime.ToString("dd-MM-yyyy")</i>
-        </a>
-        <markdown>@Model.Content</markdown>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h4 class="mt-0">@Model.Author</h4>
+                <a class="mb-2" asp-controller="Review" asp-action="Index" 
+                   asp-route-reviewId="@Model.Id">
+                    <i> on @Model.CreationDateTime.ToString("dd-MM-yyyy")</i>
+                </a>
+                <markdown>@Model.Content</markdown>
+            </div>
+        </div>
     </div>
 </div>
