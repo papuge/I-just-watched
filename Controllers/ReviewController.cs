@@ -34,6 +34,23 @@ namespace IJustWatched.Controllers
                                          .First();
             return View(review);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(string commentContent, int commentedReviewId)
+        {
+            var comment = new Comment
+            {
+                Author = await GetCurrentUserAsync(),
+                CommentedReview = _context.Reviews.FirstOrDefault(r => r.Id == commentedReviewId),
+                Content = commentContent,
+                CreationDateTime = DateTime.Now
+            };
+            _context.Add(comment);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Review", new { reviewId = commentedReviewId});
+        }
+        
         // GET
         public IActionResult New(string filmTitle = null)
         {
