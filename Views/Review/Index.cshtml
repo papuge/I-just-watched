@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<div class="col-lg-8">
+<div class="col-lg-auto" style="align-items:center">
 
         <!-- Title -->
         <h1 class="mt-4">@Model.ReviewTitle</h1>
@@ -23,6 +23,8 @@
         <p>Posted on @Model.CreationDateTime.ToString("HH:mm dd/MM/yyyy")</p>
 
         <hr>
+        
+        @await Component.InvokeAsync("Tags", new { reviewId = Model.Id })
 
         <!-- Post Content -->
         <markdown>@Model.Content</markdown>

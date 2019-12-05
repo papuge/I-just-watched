@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using IJustWatched.Data;
 using IJustWatched.Models;
@@ -75,6 +76,19 @@ namespace IJustWatched.Controllers
                 };
                 _context.Add(review);
                 _context.SaveChanges();
+                
+                var tags = Regex.Split(viewModel.Tags, @"\s+").Select(tag => tag.Trim('#').ToLower());
+                foreach (var tagString in tags)
+                {
+                    var tag = _context.Tags.FirstOrDefault(exTag => exTag.TagText == tagString);
+                    if (tag is null)
+                    {
+                        tag = new Tag {TagText = tagString};
+                        _context.Add(tag);
+                    }
+                    _context.Add(new TagReview {TaggedReview = review, TagInReview = tag});
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("Index", "Review", new { reviewId = review.Id});
             }
             return View(viewModel);

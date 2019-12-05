@@ -11,7 +11,7 @@ namespace IJustWatched.Models
 
         public override string ToString()
         {
-            return $"{TagText.ToLower()}";
+            return $"#{TagText.ToLower()}";
         }
     }
 }
