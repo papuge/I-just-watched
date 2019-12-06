@@ -29,6 +29,7 @@
       <_ContentIncludedByDefault Remove="Views\Reviews\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\FilmsContoller\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Review\Components\Comment\_Comments.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Comment\Index.cshtml" />
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,12 @@
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-                <h4 class="mt-0">@Model.Author</h4>
+                <h4 class="mt-0">
+                    <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id"
+                       style="color: black">
+                        @Model.Author
+                    </a>
+                </h4>
                 <a class="mb-2" asp-controller="Review" asp-action="Index" 
                    asp-route-reviewId="@Model.Id">
                     <i> on @Model.CreationDateTime.ToString("dd-MM-yyyy")</i>

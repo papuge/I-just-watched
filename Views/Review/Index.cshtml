@@ -13,7 +13,9 @@
         <!-- Author -->
         <p class="lead">
           by
-          <a href="#">@Model.Author.UserName</a>
+          <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id">
+              @Model.Author.UserName
+          </a>
           on <b>@Model.ReviewFilm.Title</b>
         </p>
 
