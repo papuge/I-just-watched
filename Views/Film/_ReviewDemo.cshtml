@@ -14,9 +14,12 @@
                 </h4>
                 <a class="mb-2" asp-controller="Review" asp-action="Index" 
                    asp-route-reviewId="@Model.Id">
-                    <i> on @Model.CreationDateTime.ToString("dd-MM-yyyy")</i>
+                    <i> on @Model.CreationDateTime.ToString("dd/MM/yyyy")</i>
                 </a>
-                <markdown>@Model.Content</markdown>
+                <h4>@Model.ReviewTitle</h4>
+                <div style="line-height: 1.5em; max-height: 9em; overflow: hidden">
+                    <markdown>@Model.Content</markdown>
+                </div>
             </div>
         </div>
     </div>

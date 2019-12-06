@@ -5,15 +5,50 @@
     Layout = "_Layout";
 }
 
-<h2>@Model.User.UserName</h2>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <img class="card-img-top" src="" alt="Card image">
+      <div class="card-body">
+        <h4 class="card-title">@Model.User.UserName</h4>
+        <div class="row">
+            <button type="button" class="btn btn-default" id="btnFollowers">@Model.FollowersCount followers</button>
+            <button type="button" class="btn btn-default" id="btnFollowing">@Model.FollowingCount following</button>
+        </div>
+        <hr/>
+        @if (Model.IsCurrentUserPage == false)
+        {
+          <a href="#" class="btn btn-outline-primary">+ Subscribe</a>
+        }
+        else
+        {
+          <a href="#" class="btn btn-outline-dark">Edit</a>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9">
+       @if (Model.Reviews.Count != 0)
+        {
+          <h3 style="text-align: center">Posts</h3>
+            <div class="col-lg-auto col-md-10 mx-auto">
+                @foreach (var post in Model.Reviews)
+                {
+                    <partial name="_ReviewListItem" for="@post"/>
+                }
 
-<button type="button" class="btn btn-default" id="btnFollowers">@Model.FollowersCount followers</button>
-<button type="button" class="btn btn-default" id="btnFollowing">@Model.FollowingCount following</button>
-
-@if (Model.IsCurrentUserPage == false)
-{
-  <submit type="button" class="btn btn-primary"></submit>
-}
+                <!-- Pager -->
+                <div class="clearfix">
+                    <a class="btn btn-primary float-right" href="#">Older Posts →</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h4 style="text-align: center">There's no posts yet</h4>
+        }
+  </div>
+</div>
 
 <!-- Modal Followers -->
 <div class="modal fade" id="modalFollowers" role="dialog">

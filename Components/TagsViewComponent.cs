@@ -29,7 +29,7 @@ namespace IJustWatched.Components
             var tagStrings = tags.Select(tag => tag.ToString());
             var oneString = string.Join(" ", tagStrings);
             return new HtmlContentViewComponentResult(new HtmlString(
-                $"<h6>{oneString}</h6><hr>"
+                $"<h6>{oneString}</h6>"
                 ));
         }
     }

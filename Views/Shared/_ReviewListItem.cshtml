@@ -1,14 +1,22 @@
-@model object
+@model Review
 
 <div class="post-preview">
-    <a asp-controller="Review" asp-action="Index">
-        <h3 class="post-title" style="color: black">
-            Wow, breathtaking acting! Or how I decided to go to movie twice
-        </h3>
-    </a>
+    <div style="line-height: 1.5em; max-height: 3em; overflow: hidden">
+            <h4>
+                <a asp-controller="Review" asp-action="Index" asp-route-reviewId="@Model.Id"
+                   style="color: black">
+                    @Model.ReviewTitle
+                </a>
+            </h4>
+    </div>
     <p class="post-meta">Posted by
-        <a href="#">muser</a>
-        on August 24, 2019
+        <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id">
+            @Model.Author
+        </a>
+        @Model.CreationDateTime.ToString("dd/MM/yyyy") on 
+        <a asp-controller="Film" asp-action="Index" asp-route-filmId="@Model.ReviewFilm.Id">
+            @Model.ReviewFilm.Title
+        </a>
     </p>
 </div>
 <hr>

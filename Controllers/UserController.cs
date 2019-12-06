@@ -50,6 +50,13 @@ namespace IJustWatched.Controllers
                 .Select(subs => subs.SubscriptionUser)
                 .ToListAsync();
 
+            var reviews = _context.Reviews
+                .Where(review => review.Author.Id == _currentUser.Id)
+                .Include(review => review.Author)
+                .Include(review => review.ReviewFilm)
+                .OrderByDescending(review => review.CreationDateTime)
+                .ToListAsync();
+
             var viewModel = new ProfileViewModel
             {
                 IsCurrentUserPage = _isCurrentUser,
@@ -57,7 +64,8 @@ namespace IJustWatched.Controllers
                 Followers = followers.Result,
                 FollowersCount = followers.Result.Count,
                 Following = following.Result,
-                FollowingCount = following.Result.Count
+                FollowingCount = following.Result.Count,
+                Reviews = reviews.Result
             };
             return View(viewModel);
         }

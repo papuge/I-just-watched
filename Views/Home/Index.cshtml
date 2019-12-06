@@ -1,20 +1,35 @@
-﻿@{
+﻿@model List<Review>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
    @if(User.Identity.IsAuthenticated)
    {
-       <p>Hello, @User.Identity.Name!</p>
-    
-       <form method="post" asp-controller="Account" asp-action="Logoff">
-           <input type="submit" value="Log off" />
-       </form>
+       @if (Model.Count != 0)
+       {
+           <h3 style="text-align: center">Feed</h3>
+           <div class="col-lg-auto col-md-10 mx-auto">
+               @foreach (var post in Model)
+               {
+                   <partial name="_ReviewListItem" for="@post"/>
+               }
+               
+               <!-- Pager -->
+               <div class="clearfix">
+                   <a class="btn btn-primary float-right" href="#">Older Posts →</a>
+               </div>
+           </div>
+       }
+       else
+       {
+           <h4 style="text-align: center">There's no new posts yet</h4>
+       }
    }
    else
    {
-       <a asp-controller="Account" asp-action="Login">Login</a>
-       <hr/>
-       <a asp-controller="Account" asp-action="Register">Sign up</a>
+       <div class="mt-5" style="text-align: center">
+           <a asp-controller="Account" asp-action="Login">Login</a>
+           <hr/>
+           <a asp-controller="Account" asp-action="Register">Sign up</a>    
+       </div>
    }
-</div>
