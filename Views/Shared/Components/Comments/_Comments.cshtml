@@ -3,7 +3,7 @@
 @foreach (var comment in @Model)
 {
     <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <img class="d-flex mr-3 rounded-circle" src="@comment.Author.PhotoUrl" alt="" style="width: 3em; height: 3em">
         <div class="media-body">
             <h5 class="mt-0">
                 <a asp-controller="User" asp-action="Index" asp-route-userId="@comment.Author.Id" 
@@ -11,7 +11,7 @@
                     @comment.Author
                 </a>
             </h5>
-            <p>on @comment.CreationDateTime.ToString("dd-MM-yyyy")<p/>
+            <p>@comment.CreationDateTime.ToString("HH:mm dd/MM/yyyy")<p/>
             <p>
                 @comment.Content
             </p>

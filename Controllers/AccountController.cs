@@ -29,7 +29,7 @@ namespace IJustWatched.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = viewModel.Email, UserName = viewModel.Username, 
-                    BirthdayDate = viewModel.BirthdayDate};
+                    BirthdayDate = viewModel.BirthdayDate, PhotoUrl = "images/missing_avatar.png"};
                 // get result of user create operation
                 var result = await _userManager.CreateAsync(user, viewModel.Password);
                 if (result.Succeeded)
@@ -80,10 +80,6 @@ namespace IJustWatched.Controllers
                     if (!string.IsNullOrEmpty(viewModel.ReturnUrl) && Url.IsLocalUrl(viewModel.ReturnUrl))
                     {
                         return Redirect(viewModel.ReturnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
                     }
                 }
                 else

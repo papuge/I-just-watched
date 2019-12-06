@@ -10,5 +10,6 @@ namespace IJustWatched.Models
     {
         [DataType(DataType.Date)]
         public DateTime BirthdayDate { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }
