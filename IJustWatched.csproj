@@ -31,9 +31,4 @@
       <_ContentIncludedByDefault Remove="Views\Review\Components\Comment\_Comments.cshtml" />
     </ItemGroup>
 
-
-    <ItemGroup>
-      <Folder Include="Pages" />
-    </ItemGroup>
-
 </Project>

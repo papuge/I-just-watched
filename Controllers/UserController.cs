@@ -14,6 +14,7 @@ namespace IJustWatched.Controllers
         private readonly IJustWatchedContext _context;
         private readonly UserManager<User> _userManager;
         private User _currentUser;
+        private bool _isCurrentUser;
 
         public UserController(IJustWatchedContext context, UserManager<User> userManager)
         {
@@ -21,10 +22,22 @@ namespace IJustWatched.Controllers
             _userManager = userManager;
         }
         // GET
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string userId = "")
         {
-            _currentUser = await GetCurrentUserAsync();
-            
+            if (userId == "")
+            {
+                _currentUser = await GetCurrentUserAsync();
+                _isCurrentUser = true;
+            }
+            else
+            {
+                _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId) as User;
+                if (_currentUser != null)
+                {
+                    _isCurrentUser = false;
+                }
+            }
+
             var followers = _context.Subscriptions
                 .Where(subs => subs.SubscriptionUser.Id == _currentUser.Id)
                 .Include(subs => subs.SubscriberUser)
@@ -39,7 +52,8 @@ namespace IJustWatched.Controllers
 
             var viewModel = new ProfileViewModel
             {
-                CurrentUser = _currentUser,
+                IsCurrentUserPage = _isCurrentUser,
+                User = _currentUser,
                 Followers = followers.Result,
                 FollowersCount = followers.Result.Count,
                 Following = following.Result,

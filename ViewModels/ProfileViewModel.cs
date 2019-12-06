@@ -5,7 +5,8 @@ namespace IJustWatched.ViewModels
 {
     public class ProfileViewModel
     {
-        public User CurrentUser { get; set; }
+        public bool IsCurrentUserPage { get; set; }
+        public User User { get; set; }
         public List<User> Followers { get; set; }
         public int FollowersCount { get; set; }
         public List<User> Following { get; set; }
