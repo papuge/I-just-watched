@@ -1,8 +1,10 @@
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using IJustWatched.Data;
 using IJustWatched.Models;
 using IJustWatched.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +70,27 @@ namespace IJustWatched.Controllers
                 Reviews = reviews.Result
             };
             return View(viewModel);
+        }
+        
+        [HttpPost]
+        public async Task<bool> UploadFile(IFormFile uploadedFile)
+        {
+            if (uploadedFile != null && uploadedFile.Length > 0)
+            {
+                _currentUser = GetCurrentUserAsync().Result;
+                var fileName = Path.GetFileName(uploadedFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images", fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+
+                _currentUser.PhotoUrl = "images/" + fileName;
+                _context.Update(_currentUser);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
         
         private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
