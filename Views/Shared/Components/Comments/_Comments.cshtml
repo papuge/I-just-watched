@@ -3,7 +3,7 @@
 @foreach (var comment in @Model)
 {
     <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="@comment.Author.PhotoUrl" alt="" style="width: 3em; height: 3em">
+        <img class="d-flex mr-3 rounded-circle" src="@comment.Author.PhotoUrl" alt="" style="width: 3em; height: 3em; object-fit: cover">
         <div class="media-body">
             <h5 class="mt-0">
                 <a asp-controller="User" asp-action="Index" asp-route-userId="@comment.Author.Id" 

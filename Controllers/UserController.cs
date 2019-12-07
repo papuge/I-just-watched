@@ -26,7 +26,8 @@ namespace IJustWatched.Controllers
         // GET
         public async Task<IActionResult> Index(string userId = "")
         {
-            if (userId == "")
+            _currentUser = await GetCurrentUserAsync();
+            if (userId == "" || userId == _currentUser.Id)
             {
                 _currentUser = await GetCurrentUserAsync();
                 _isCurrentUser = true;
@@ -73,11 +74,11 @@ namespace IJustWatched.Controllers
         }
         
         [HttpPost]
-        public async Task<bool> UploadFile(IFormFile uploadedFile)
+        public async Task<IActionResult> UploadFile(IFormFile uploadedFile)
         {
+            _currentUser = GetCurrentUserAsync().Result;
             if (uploadedFile != null && uploadedFile.Length > 0)
             {
-                _currentUser = GetCurrentUserAsync().Result;
                 var fileName = Path.GetFileName(uploadedFile.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images", fileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -88,9 +89,8 @@ namespace IJustWatched.Controllers
                 _currentUser.PhotoUrl = "images/" + fileName;
                 _context.Update(_currentUser);
                 await _context.SaveChangesAsync();
-                return true;
             }
-            return false;
+            return RedirectToAction("Index", "User", new { userId = _currentUser.Id});
         }
         
         private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);

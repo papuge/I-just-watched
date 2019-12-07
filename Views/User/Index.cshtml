@@ -8,28 +8,25 @@
 <div class="row">
   <div class="col-sm-3">
     <div class="card">
-      <img class="card-img-top" src="@Model.User.PhotoUrl" style="width: 13em; height: 13em" alt="User photo">
+      <img class="card-img-top" src="@Model.User.PhotoUrl" style="width: 13em; height: 13em; object-fit: cover" alt="User photo">
       <div class="card-body">
         @if (Model.IsCurrentUserPage == true)
         {
           <form method="post" asp-controller="User" asp-action="UploadFile" enctype="multipart/form-data">
             <input name="uploadedFile" type="file" style="word-wrap: normal; width: 180px; overflow: -moz-scrollbars-horizontal" accept=".jpg, .jpeg, .png"/>
-            <button type="submit" class="btn btn-outline-dark">Change photo</button>
+            <button type="submit" class="btn-sm mt-2 mb-2 btn-outline-dark">Change photo</button>
           </form>
+          <hr/>
         }
         <h4 class="card-title">@Model.User.UserName</h4>
         <div class="row">
           <button type="button" class="btn btn-default" id="btnFollowers">@Model.FollowersCount followers</button>
           <button type="button" class="btn btn-default" id="btnFollowing">@Model.FollowingCount following</button>
         </div>
-        <hr/>
         @if (Model.IsCurrentUserPage == false)
         {
+          <hr/>
           <a href="#" class="btn btn-outline-primary">+ Subscribe</a>
-        }
-        else
-        {
-          <button type="submit" class="btn btn-outline-dark">Change photo</button>
         }
       </div>
     </div>
@@ -77,7 +74,7 @@
             @foreach (var follower in Model.Followers)
             {
               <div class="media mb-3">
-                <img class="d-flex mr-3 rounded-circle" src="@follower.PhotoUrl" alt="" style="width: 2em; height: 2em">
+                <img class="d-flex mr-3 rounded-circle" src="@follower.PhotoUrl" alt="" style="width: 2em; height: 2em; object-fit: cover">
                 <div class="media-body">
                   <a asp-controller="User" asp-action="Index" asp-route-userId="@follower.Id"
                      style="color: black">
@@ -115,7 +112,7 @@
             @foreach (var following in Model.Following)
             {
               <div class="media mb-3">
-                <img class="d-flex mr-3 rounded-circle" src="@following.PhotoUrl" alt="" style="width: 2em; height: 2em">
+                <img class="d-flex mr-3 rounded-circle" src="@following.PhotoUrl" alt="" style="width: 2em; height: 2em; object-fit: cover">
                 <div class="media-body">
                   <a asp-controller="User" asp-action="Index" asp-route-userId="@following.Id"
                      style="color: black">

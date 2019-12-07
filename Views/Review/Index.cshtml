@@ -16,7 +16,9 @@
           <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id">
               @Model.Author.UserName
           </a>
-          on <b>@Model.ReviewFilm.Title</b>
+          on <a asp-controller="Film" asp-action="Index" asp-route-filmId="@Model.ReviewFilm.Id">
+              @Model.ReviewFilm.Title
+          </a>
         </p>
 
         <hr>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -43,8 +44,9 @@
             {
                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" style="color: white">
-                     @* <img class="mr-2 img-profile rounded-circle" src="@TempData["CurrentUserPhotoURL"]" alt="" *@
-                     @*      width="40px" height="40px"> *@
+                     @* <img id="header_avatar" class="mr-2 img-profile rounded-circle" *@
+                     @*      src="" alt="" *@
+                     @*      width="40px" height="40px" style="object-fit: cover"> *@
                  </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
