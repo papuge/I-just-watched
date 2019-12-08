@@ -10,7 +10,7 @@
     <div class="card">
       <img class="card-img-top" src="@Model.User.PhotoUrl" style="width: 13em; height: 13em; object-fit: cover" alt="User photo">
       <div class="card-body">
-        @if (Model.IsCurrentUserPage == true)
+        @if (Model.IsCurrentUserPage)
         {
           <form method="post" asp-controller="User" asp-action="UploadFile" enctype="multipart/form-data">
             <input name="uploadedFile" type="file" style="word-wrap: normal; width: 180px; overflow: -moz-scrollbars-horizontal" accept=".jpg, .jpeg, .png"/>
@@ -23,10 +23,10 @@
           <button type="button" class="btn btn-default" id="btnFollowers">@Model.FollowersCount followers</button>
           <button type="button" class="btn btn-default" id="btnFollowing">@Model.FollowingCount following</button>
         </div>
-        @if (Model.IsCurrentUserPage == false)
+        @if (Model.IsCurrentUserPage == false && User.Identity.IsAuthenticated)
         {
           <hr/>
-          <a href="#" class="btn btn-outline-primary">+ Subscribe</a>
+          <a href="#" id="subscribe_btn" class="btn btn-outline-primary" style="outline: none">+ Subscribe</a>
         }
       </div>
     </div>
@@ -132,6 +132,9 @@
 
 <script>
 $(document).ready(function(){
+  
+  checkSubscription();
+  
   $("#btnFollowers").click(function(){
     $("#modalFollowers").modal();
   });
@@ -140,4 +143,19 @@ $(document).ready(function(){
     $("#modalFollowing").modal();   
   });
 });
+
+function checkSubscription() {
+  var sub_button = $("#subscribe_btn");
+  sub_button.click(function() {
+    if(sub_button.hasClass("btn btn-outline-primary")) {
+      sub_button.removeClass("btn btn-outline-primary");
+      sub_button.addClass("btn btn-primary");
+      sub_button.text("Unsubscribe");
+    } else {
+      sub_button.removeClass("btn btn-primary");
+      sub_button.addClass("btn btn-outline-primary");
+      sub_button.text("+ Subscribe");
+    }
+  });
+}
 </script>

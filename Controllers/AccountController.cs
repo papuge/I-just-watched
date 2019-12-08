@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using IJustWatched.Models;
 using IJustWatched.ViewModels;
@@ -36,6 +37,7 @@ namespace IJustWatched.Controllers
                 {
                     // set up cookies
                     await _signInManager.SignInAsync(user, false);
+                    await _userManager.AddToRolesAsync(user, new List<string> {"user"});
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -77,10 +79,7 @@ namespace IJustWatched.Controllers
                 }
                 if (result.Succeeded)
                 {
-                    if (!string.IsNullOrEmpty(viewModel.ReturnUrl) && Url.IsLocalUrl(viewModel.ReturnUrl))
-                    {
-                        return Redirect(viewModel.ReturnUrl);
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

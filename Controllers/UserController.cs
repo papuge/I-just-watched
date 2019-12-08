@@ -26,18 +26,30 @@ namespace IJustWatched.Controllers
         // GET
         public async Task<IActionResult> Index(string userId = "")
         {
-            _currentUser = await GetCurrentUserAsync();
-            if (userId == "" || userId == _currentUser.Id)
+            if (!HttpContext.User.Identity.IsAuthenticated && userId == "")
             {
-                _currentUser = await GetCurrentUserAsync();
-                _isCurrentUser = true;
+                return RedirectToAction("Index", "Home");
+            }
+            else if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId) as User;
+                _isCurrentUser = false;
             }
             else
             {
-                _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId) as User;
-                if (_currentUser != null)
+                _currentUser = await GetCurrentUserAsync();
+                if (userId == "" || userId == _currentUser.Id)
                 {
-                    _isCurrentUser = false;
+                    _currentUser = await GetCurrentUserAsync();
+                    _isCurrentUser = true;
+                }
+                else
+                {
+                    _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId) as User;
+                    if (_currentUser != null)
+                    {
+                        _isCurrentUser = false;
+                    }
                 }
             }
 
