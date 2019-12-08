@@ -7,7 +7,9 @@ using IJustWatched.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace IJustWatched.Controllers
 {
@@ -84,6 +86,36 @@ namespace IJustWatched.Controllers
             };
             return View(viewModel);
         }
+        
+        [Route("api/subscriptions/{userId}")]
+        public async Task<JsonResult> LoadSubscriptions(string userId)
+        {
+            var followers = await _context.Subscriptions
+                .Where(subs => subs.SubscriptionUser.Id == userId)
+                .Include(subs => subs.SubscriberUser)
+                .Select(subs => subs.SubscriberUser)
+                .Select(f => new
+                {
+                    f.Id,
+                    f.UserName,
+                    f.PhotoUrl
+                })
+                .ToListAsync();
+            
+            var following =  await _context.Subscriptions
+                .Where(subs => subs.SubscriberUser.Id == userId)
+                .Include(subs => subs.SubscriptionUser)
+                .Select(subs => subs.SubscriptionUser)
+                .Select(f => new
+                {
+                    f.Id,
+                    f.UserName,
+                    f.PhotoUrl
+                })
+                .ToListAsync();
+            return Json(JsonConvert.SerializeObject(new {followers, following}));
+        }
+ 
         
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile uploadedFile)

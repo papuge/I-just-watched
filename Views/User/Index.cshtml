@@ -20,8 +20,8 @@
         }
         <h4 class="card-title">@Model.User.UserName</h4>
         <div class="row">
-          <button type="button" class="btn btn-default" id="btnFollowers">@Model.FollowersCount followers</button>
-          <button type="button" class="btn btn-default" id="btnFollowing">@Model.FollowingCount following</button>
+          <button type="button" class="btn btn-default" id="btnFollowers"></button>
+          <button type="button" class="btn btn-default" id="btnFollowing"></button>
         </div>
         @if (Model.IsCurrentUserPage == false && User.Identity.IsAuthenticated)
         {
@@ -64,26 +64,8 @@
         <h4 class="modal-title">Followers</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <div class="modal-body" style="overflow-y:auto">
-          @if (Model.FollowingCount == 0)
-          {
-            <p>List is empty</p>
-          }
-          else
-          {
-            @foreach (var follower in Model.Followers)
-            {
-              <div class="media mb-3">
-                <img class="d-flex mr-3 rounded-circle" src="@follower.PhotoUrl" alt="" style="width: 2em; height: 2em; object-fit: cover">
-                <div class="media-body">
-                  <a asp-controller="User" asp-action="Index" asp-route-userId="@follower.Id"
-                     style="color: black">
-                    @follower.UserName
-                  </a>
-                </div>
-              </div>
-            }
-          }
+      <div class="modal-body" id="followersModalBody" style="overflow-y:auto">
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -102,26 +84,7 @@
           <h4 class="modal-title">Following</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="modal-body" style="overflow-y:auto">
-          @if (Model.FollowingCount == 0)
-          {
-            <p>List is empty</p>
-          }
-          else
-          {
-            @foreach (var following in Model.Following)
-            {
-              <div class="media mb-3">
-                <img class="d-flex mr-3 rounded-circle" src="@following.PhotoUrl" alt="" style="width: 2em; height: 2em; object-fit: cover">
-                <div class="media-body">
-                  <a asp-controller="User" asp-action="Index" asp-route-userId="@following.Id"
-                     style="color: black">
-                    @following.UserName
-                  </a>
-                </div>
-              </div>
-            }
-          }
+        <div class="modal-body" id="followingModalBody" style="overflow-y:auto">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -133,7 +96,8 @@
 <script>
 $(document).ready(function(){
   
-  checkSubscription();
+  loadSubscriptions();
+  initSubscriptions();
   
   $("#btnFollowers").click(function(){
     $("#modalFollowers").modal();
@@ -144,18 +108,76 @@ $(document).ready(function(){
   });
 });
 
-function checkSubscription() {
-  var sub_button = $("#subscribe_btn");
-  sub_button.click(function() {
-    if(sub_button.hasClass("btn btn-outline-primary")) {
-      sub_button.removeClass("btn btn-outline-primary");
-      sub_button.addClass("btn btn-primary");
-      sub_button.text("Unsubscribe");
+function changeSubsState() {
+  let subs_button = $("#subscribe_btn");
+  if(subs_button.hasClass("btn btn-outline-primary")) {
+    subs_button.removeClass("btn btn-outline-primary");
+    subs_button.addClass("btn btn-primary");
+    subs_button.text("Unsubscribe");
+  } else {
+    subs_button.removeClass("btn btn-primary");
+    subs_button.addClass("btn btn-outline-primary");
+    subs_button.text("+ Subscribe");
+  }
+}
+
+function loadSubscriptions() {
+  $.ajax(`/api/subscriptions/@Model.User.Id`).done((response) => {
+    let data = JSON.parse(response);
+    let followersCount = data.followers.length;
+    let followingCount = data.following.length;
+    
+    let followerModalBody = $("#followersModalBody");
+    followerModalBody.empty();
+    let followingModalBody = $("#followingModalBody");
+    followingModalBody.empty();
+    
+    $("#btnFollowers").text(followersCount + " followers");
+    $("#btnFollowing").text(followingCount + " following");
+    if (followersCount === 0) {
+      followerModalBody.append("<p>List is empty</p>");
     } else {
-      sub_button.removeClass("btn btn-primary");
-      sub_button.addClass("btn btn-outline-primary");
-      sub_button.text("+ Subscribe");
+      data.followers.forEach(follower => {
+         followerModalBody.append(
+                 `
+             <div class="media mb-3">
+               <img class="d-flex mr-3 rounded-circle" src="${follower.PhotoUrl}" alt="" style="width: 2em; height: 2em; object-fit: cover">
+               <div class="media-body">
+                 <a href="/user/${follower.Id}" style="color: black">
+                   ${follower.UserName}
+                 </a>
+               </div>
+             </div>
+             `
+         )
+     });
     }
-  });
+    
+    if (followingCount === 0) {
+      followerModalBody.append("<p>List is empty</p>");
+    } else {
+      data.following.forEach(following => {
+         followingModalBody.append(
+                 `
+             <div class="media mb-3">
+               <img class="d-flex mr-3 rounded-circle" src="${following.PhotoUrl}" alt="" style="width: 2em; height: 2em; object-fit: cover">
+               <div class="media-body">
+                 <a href="/user/${following.Id}" style="color: black">
+                   ${following.UserName}
+                 </a>
+               </div>
+             </div>
+             `
+         )
+     });
+    }
+  }) 
+}
+
+function initSubscriptions() {
+  $("#subscribe_btn").click(function(){
+    loadSubscriptions();
+    changeSubsState();
+  })
 }
 </script>
