@@ -64,7 +64,7 @@ namespace IJustWatched.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(viewModel.EmailOrUsername);
-                Microsoft.AspNetCore.Identity.SignInResult result = null;
+                Microsoft.AspNetCore.Identity.SignInResult result;
                 if (user != null)
                 {
                     // Username was entered at login form

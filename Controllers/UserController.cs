@@ -98,7 +98,7 @@ namespace IJustWatched.Controllers
                     await uploadedFile.CopyToAsync(fileStream);
                 }
 
-                _currentUser.PhotoUrl = "images/" + fileName;
+                _currentUser.PhotoUrl = "/images/" + fileName;
                 _context.Update(_currentUser);
                 await _context.SaveChangesAsync();
             }

@@ -5,12 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using IJustWatched.Data;
 using IJustWatched.Models;
+using IJustWatched.Models.CustomConstraits;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +53,11 @@ namespace IJustWatched
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddApplicationPart(typeof(MarkdownPageProcessorMiddleware).Assembly);
             
+            // add here your route constraint   
+            services.Configure<RouteOptions>(routeOptions =>   
+            {  
+                routeOptions.ConstraintMap.Add("userIdConstraint", typeof(UserIdConstraint));  
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,8 +83,49 @@ namespace IJustWatched
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "Home", template: "/",
+                    new {controller="Home", action = "Index"});
+                
+                routes.MapRoute(
+                    name: "Feed", template: "feed/",
+                    new {controller="Home", action = "Index"});
+                
+                routes.MapRoute(
+                    name: "Films", template: "films/",
+                    new {controller="Films", action = "Index"});
+
+                routes.MapRoute(
+                    name: "Film", template: "film/{filmId:int}", 
+                    defaults: new {controller = "Film", action = "Index"});
+                
+                routes.MapRoute(
+                    name: "Account", template: "acc/{action=Login}",
+                    new {controller="Account"});
+                
+                routes.MapRoute(
+                    name: "Review", template: "review/{reviewId:int}",
+                    new {controller="Review", action="Index"});
+                
+                routes.MapRoute(
+                    name: "NewReview", template: "newReview/{filmTitle?}",
+                    new {controller="Review", action = "New"});
+                
+                routes.MapRoute(
+                    name: "Roles", template: "roles/{action=Index}",
+                    new {controller="Roles"});
+                
+                routes.MapRoute(
+                    name: "Profile", template: "user/{userId:length(36)}",
+                    new {controller="User", action="Index"});
+                
+                routes.MapRoute(
+                    name: "MyProfile", template: "profile/",
+                    new {controller="User", action="Index" });
+                
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                
             });
             
             var cultureInfo = new CultureInfo(CultureInfo.CurrentCulture.Name);

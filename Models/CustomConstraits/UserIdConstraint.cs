@@ -27,16 +27,13 @@ namespace IJustWatched.Models.CustomConstraits
                 throw new ArgumentNullException(nameof(routeKey));  
 
             if (values == null)  
-                throw new ArgumentNullException(nameof(values));  
+                throw new ArgumentNullException(nameof(values));
 
-            object routeValue;  
-
-            if(values.TryGetValue(routeKey, out routeValue))  
+            if(values.TryGetValue(routeKey, out var routeValue))  
             {  
                 var parameterValueString = Convert.ToString(routeValue, CultureInfo.InvariantCulture);  
-                return new Regex(@"^[a-zA-Z0-9]*$",   
-                    RegexOptions.CultureInvariant   
-                    | RegexOptions.IgnoreCase, RegexMatchTimeout).IsMatch(parameterValueString);  
+                return new Regex(@"^[a-z0-9-]+$",   
+                    RegexOptions.CultureInvariant, RegexMatchTimeout).IsMatch(parameterValueString);  
             }  
 
             return false;  
