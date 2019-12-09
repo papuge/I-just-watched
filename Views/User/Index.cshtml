@@ -26,7 +26,14 @@
         @if (Model.IsCurrentUserPage == false && User.Identity.IsAuthenticated)
         {
           <hr/>
-          <a href="#" id="subscribe_btn" class="btn btn-outline-primary" style="outline: none">+ Subscribe</a>
+          @if (Model.IsSubscription)
+          {
+            <button id="subscribe_btn" class="btn btn-primary" style="outline: none">Unsubscribe</button>
+          }
+          else
+          {
+            <button id="subscribe_btn" class="btn btn-outline-primary" style="outline: none">+ Subscribe</button>
+          }
         }
       </div>
     </div>
@@ -154,7 +161,7 @@ function loadSubscriptions() {
     }
     
     if (followingCount === 0) {
-      followerModalBody.append("<p>List is empty</p>");
+      followingModalBody.append("<p>List is empty</p>");
     } else {
       data.following.forEach(following => {
          followingModalBody.append(
@@ -174,10 +181,28 @@ function loadSubscriptions() {
   }) 
 }
 
-function initSubscriptions() {
-  $("#subscribe_btn").click(function(){
+function subscribe() {
+  $.ajax(`/subscribe/@Model.User.Id`).done(function() {
     loadSubscriptions();
     changeSubsState();
+  })
+}
+
+function unsubscribe() {
+  $.ajax(`/unsubscribe/@Model.User.Id`).done(function() {
+    loadSubscriptions();
+    changeSubsState();
+  })
+}
+
+function initSubscriptions() {
+  let subButton = $("#subscribe_btn");
+  subButton.click(function(){
+    if(subButton.hasClass("btn btn-outline-primary")) {
+      subscribe()
+    } else {
+      unsubscribe()
+    }
   })
 }
 </script>

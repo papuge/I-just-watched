@@ -19,6 +19,7 @@ namespace IJustWatched.Controllers
         private readonly UserManager<User> _userManager;
         private User _currentUser;
         private bool _isCurrentUser;
+        private bool _isSubscription = false;
 
         public UserController(IJustWatchedContext context, UserManager<User> userManager)
         {
@@ -32,7 +33,7 @@ namespace IJustWatched.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            else if (!HttpContext.User.Identity.IsAuthenticated)
+            if (!HttpContext.User.Identity.IsAuthenticated)
             {
                 _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId) as User;
                 _isCurrentUser = false;
@@ -47,9 +48,14 @@ namespace IJustWatched.Controllers
                 }
                 else
                 {
+                    var thisUser = _currentUser;
                     _currentUser = _context.Users.FirstOrDefault(u => u.Id == userId) as User;
                     if (_currentUser != null)
                     {
+                        var isSubs = _context.Subscriptions
+                            .Where(subs => subs.SubscriberUser.Id == thisUser.Id)
+                            .FirstOrDefault(s => s.SubscriptionUser.Id == _currentUser.Id);
+                        _isSubscription = isSubs != null;
                         _isCurrentUser = false;
                     }
                 }
@@ -77,6 +83,7 @@ namespace IJustWatched.Controllers
             var viewModel = new ProfileViewModel
             {
                 IsCurrentUserPage = _isCurrentUser,
+                IsSubscription = _isSubscription,
                 User = _currentUser,
                 Followers = followers.Result,
                 FollowersCount = followers.Result.Count,
@@ -115,7 +122,47 @@ namespace IJustWatched.Controllers
                 .ToListAsync();
             return Json(JsonConvert.SerializeObject(new {followers, following}));
         }
- 
+        
+        public async Task<IActionResult> Subscribe(string onUserId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+            if (onUserId == currentUser.Id)
+            {
+                return Ok();
+            }
+
+            var existing = _context.Subscriptions
+                .Where(subs => subs.SubscriberUser.Id == currentUser.Id)
+                .FirstOrDefault(subs => subs.SubscriptionUser.Id == onUserId);
+            if (existing is null)
+            {
+                _context.Subscriptions.Add(new Subscriptions
+                {
+                    SubscriberUser = currentUser,
+                    SubscriptionUser = _context.Users.FindAsync(onUserId).Result as User
+                });
+                _context.SaveChanges();
+            }
+            return Ok();
+        }
+        
+        public async Task<IActionResult> Unsubscribe(string onUserId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+            if (onUserId == currentUser.Id)
+            {
+                return Ok();
+            }
+            var existing = _context.Subscriptions
+                .Where(subs => subs.SubscriberUser.Id == currentUser.Id)
+                .FirstOrDefault(subs => subs.SubscriptionUser.Id == onUserId);
+            if (existing != null)
+            {
+                _context.Subscriptions.Remove(existing);
+                _context.SaveChanges();
+            }
+            return Ok();
+        }
         
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile uploadedFile)

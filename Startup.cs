@@ -118,6 +118,14 @@ namespace IJustWatched
                     new {controller="User", action="Index" });
                 
                 routes.MapRoute(
+                    name: "Subscribe", template: "subscribe/{onUserId:length(36)}",
+                    new {controller="User", action="Subscribe" });
+                
+                routes.MapRoute(
+                    name: "Unsubscribe", template: "unsubscribe/{onUserId:length(36)}",
+                    new {controller="User", action="Unsubscribe" });
+                
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 
