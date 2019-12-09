@@ -27,4 +27,16 @@
     <data name="backLogin">
         <value>Назад ко входу</value>
     </data>
+    <data name="email">
+        <value>Почта</value>
+    </data>
+    <data name="username">
+        <value>Никнейм</value>
+    </data>
+    <data name="password">
+        <value>Пароль</value>
+    </data>
+    <data name="repPassword">
+        <value>Повторите пароль</value>
+    </data>
 </root>

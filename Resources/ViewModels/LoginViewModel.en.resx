@@ -18,10 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="editing">
-        <value>Изменение прав для</value>
+    <data name="emailReq">
+        <value>Email or username required</value>
     </data>
-    <data name="save">
-        <value>Сохранить</value>
+    <data name="passwReq">
+        <value>Password required</value>
+    </data>
+    <data name="rememberMe">
+        <value>Remember me</value>
     </data>
 </root>

@@ -5,24 +5,26 @@ namespace IJustWatched.ViewModels
 {
     public class ReviewViewModel
     {
-        [Required(ErrorMessage = "Title is required."), 
-         MinLength(4, ErrorMessage = "Title is too short."), 
-         MaxLength(150, ErrorMessage = "Title is too long.")]
+        [Required(ErrorMessage = "required"), 
+         MinLength(4, ErrorMessage = "tooShort"), 
+         MaxLength(150, ErrorMessage = "tooLong")]
+        [Display(Name = "title")]
         public string Title { get; set; }
         
+        [Display(Name = "tags")]
         public string Tags { get; set; }
         
-        [Required(ErrorMessage = "Film title is required."), 
-         MinLength(1, ErrorMessage = "Title is too short."), 
-         MaxLength(75, ErrorMessage = "Title is too long.")]
+        [Required(ErrorMessage = "required"), 
+         MinLength(1, ErrorMessage = "tooShort"), 
+         MaxLength(75, ErrorMessage = "tooLong")]
         [FilmInDbValidation]
-        [Display(Name = "Film title")]
+        [Display(Name = "filmTitle")]
         public string FilmTitle { get; set; }
         
-        [Required(ErrorMessage = "Content is required."),
-         MinLength(5, ErrorMessage = "Post is too short."),
-         MaxLength(4000, ErrorMessage = "Post is too long.")]
-        [Display(Name = "Content")]
+        [Required(ErrorMessage = "required"),
+         MinLength(5, ErrorMessage = "tooShort"),
+         MaxLength(4000, ErrorMessage = "tooLong")]
+        [Display(Name = "content")]
         public string ReviewText { get; set; }
     }
 }

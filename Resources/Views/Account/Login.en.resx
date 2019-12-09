@@ -30,4 +30,10 @@
     <data name="signUp">
         <value>Sign up</value>
     </data>
+    <data name="email">
+        <value>Email or username</value>
+    </data>
+    <data name="password">
+        <value>Password</value>
+    </data>
 </root>

@@ -27,4 +27,16 @@
     <data name="backLogin">
         <value>Back to login</value>
     </data>
+    <data name="email">
+        <value>Email</value>
+    </data>
+    <data name="username">
+        <value>Username</value>
+    </data>
+    <data name="password">
+        <value>Password</value>
+    </data>
+    <data name="repPassword">
+        <value>Repeat password</value>
+    </data>
 </root>

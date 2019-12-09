@@ -6,28 +6,28 @@ namespace IJustWatched.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "required")]
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
-            ErrorMessage = "Field doesn't math email address.'")]
+            ErrorMessage = "email")]
         public string Email { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "required")]
         public string Username { get; set; }
  
-        [Required]
+        [Required(ErrorMessage = "required")]
         [DataType(DataType.Date)]
         [BirthDateRange]
-        [Display(Name = "Birthday Date")]
+        [Display(Name = "birthday")]
         public DateTime BirthdayDate { get; set; }
  
-        [Required]
+        [Required(ErrorMessage = "required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
  
-        [Required]
-        [Compare("Password", ErrorMessage = "Passwords do not match.")]
+        [Required(ErrorMessage = "required")]
+        [Compare("Password", ErrorMessage = "passwNotMatch")]
         [DataType(DataType.Password)]
-        [Display(Name = "Repeat password")]
+        [Display(Name = "passwRepeat")]
         public string PasswordConfirm { get; set; }
 
     }

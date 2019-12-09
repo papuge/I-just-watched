@@ -33,13 +33,13 @@
         <div class="mt-3 form-label-group">
             <label asp-for="EmailOrUsername" for="inputEmail" class="sr-only"></label>
             <input asp-for="EmailOrUsername"  id="inputEmail" class="form-control"
-                   placeholder="Email or username">
+                   placeholder="@Localizer["email"]">
             <span asp-validation-for="EmailOrUsername" style="color:red"></span>
         </div>
         <div class="mt-4 form-label-group">
             <label asp-for="Password" for="inputPassword" class="sr-only"></label>
             <input asp-for="Password" type="password" id="inputPassword" class="form-control"
-                   placeholder="Password">
+                   placeholder="@Localizer["password"]">
             <span asp-validation-for="Password" style="color:red"></span>
         </div>
         <div class="mt-3 text-left checkbox">

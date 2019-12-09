@@ -52,6 +52,7 @@ namespace IJustWatched
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddDataAnnotationsLocalization()
                 .AddViewLocalization()
                 .AddApplicationPart(typeof(MarkdownPageProcessorMiddleware).Assembly);
             

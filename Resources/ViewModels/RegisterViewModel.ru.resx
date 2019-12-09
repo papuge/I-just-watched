@@ -18,10 +18,20 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="editing">
-        <value>Изменение прав для</value>
+
+    <data name="required">
+        <value>Это поле необходимо</value>
     </data>
-    <data name="save">
-        <value>Сохранить</value>
+    <data name="email">
+        <value>Значение не подходит для почтового адреса</value>
+    </data>
+    <data name="birthday">
+        <value>День рождения</value>
+    </data>
+    <data name="passwNotMatch">
+        <value>Пароли не совпадают</value>
+    </data>
+    <data name="passwRepeat">
+        <value>Повторите пароль</value>
     </data>
 </root>

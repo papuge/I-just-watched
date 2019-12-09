@@ -4,14 +4,14 @@ namespace IJustWatched.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage="emailReq")]
         public string EmailOrUsername { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="passwReq")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
          
-        [Display(Name = "Remember me")]
+        [Display(Name = "rememberMe")]
         public bool RememberMe { get; set; }
          
         public string ReturnUrl { get; set; }

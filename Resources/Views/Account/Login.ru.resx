@@ -30,4 +30,10 @@
     <data name="signUp">
         <value>Зарегистрироваться</value>
     </data>
+    <data name="email">
+        <value>Почта или никнейм</value>
+    </data>
+    <data name="password">
+        <value>Пароль</value>
+    </data>
 </root>

@@ -41,9 +41,4 @@
       <UpToDateCheckInput Remove="Views\Reviews\Index.cshtml" />
     </ItemGroup>
 
-
-    <ItemGroup>
-      <Folder Include="Resources\ViewModels" />
-    </ItemGroup>
-
 </Project>

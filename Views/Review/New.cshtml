@@ -1,4 +1,6 @@
 @model IJustWatched.ViewModels.ReviewViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewBag.Title = "title";
@@ -8,16 +10,15 @@
 <form method="post" asp-controller="Review" asp-action="New">
     <div class="col-lg-auto">
         <div asp-validation-summary="ModelOnly" style="color: red"></div>
-        <h4>Submit post</h4>
+        <h4>@Localizer["submitPost"]</h4>
         <!-- Title -->
         <label asp-for="Title"></label>
-        <textarea  asp-for="Title" type="text" class="form-control mb-3" rows="2" 
-            placeholder="Title" style="resize: none"></textarea>
+        <textarea  asp-for="Title" type="text" class="form-control mb-3" rows="2" style="resize: none"></textarea>
         <span asp-validation-for="Title" style="color:red"></span>
         <hr>
         <!-- Tags-->
         <label asp-for="Tags"></label>
-        <input asp-for="Tags" type="text" class="form-control input-sm" placeholder="Tags">
+        <input asp-for="Tags" type="text" class="form-control input-sm">
         <hr>
         @if (ViewData["filmTitle"] != null)
         {
@@ -29,16 +30,16 @@
         {
             <!-- Film -->
             <label asp-for="FilmTitle"></label>
-            <input asp-for="FilmTitle" type="text" class="form-control mb-3" placeholder="Film">
+            <input asp-for="FilmTitle" type="text" class="form-control mb-3">
             <span asp-validation-for="FilmTitle" style="color:red"></span>
         }
         <hr>
         <!-- Review Text -->
         <label asp-for="ReviewText"></label>
-        <textarea asp-for="ReviewText" class="form-control mb-3" rows="10" placeholder="Your review here"></textarea>
+        <textarea asp-for="ReviewText" class="form-control mb-3" rows="10"></textarea>
         <span asp-validation-for="ReviewText" style="color:red"></span>
         <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">@Localizer["submit"]</button>
 
     </div>
 </form>

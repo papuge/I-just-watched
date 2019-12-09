@@ -9,7 +9,7 @@
 }
 
  
-<h2>Editing user rights for @Model.UserEmail</h2>
+<h2>@Localizer["editing"] @Model.UserEmail</h2>
  
 <form asp-action="Edit" method="post">
     <input type="hidden" name="userId" value="@Model.UserId" />
@@ -20,5 +20,5 @@
                    @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
         }
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Localizer["save"]</button>
 </form>
