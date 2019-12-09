@@ -13,5 +13,6 @@ namespace IJustWatched.ViewModels
         public List<User> Following { get; set; }
         public int FollowingCount { get; set; }
         public List<Review> Reviews { get; set; }
+        public int MaxReviewPages { get; set; }
     }
 }

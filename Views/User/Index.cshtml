@@ -42,17 +42,16 @@
        @if (Model.Reviews.Count != 0)
         {
           <h3 style="text-align: center">Posts</h3>
-            <div class="col-lg-auto col-md-10 mx-auto">
-                @foreach (var post in Model.Reviews)
-                {
-                    <partial name="_ReviewListItem" for="@post"/>
-                }
-
-                <!-- Pager -->
-                <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="#">Older Posts →</a>
-                </div>
+          <div class="col-lg-auto col-md-10 mx-auto">
+            <div id="postsDiv">
             </div>
+
+            <!-- Pager -->
+            <div class="clearfix">
+              <button id="backBtn" class="btn btn-primary float-left">← Back</button>
+              <button id="nextBtn" class="btn btn-primary float-right">Next →</button>
+            </div>
+          </div>
         }
         else
         {
@@ -101,10 +100,14 @@
   </div>
 
 <script>
+
+var pageNumber = 1;
+
 $(document).ready(function(){
   
   loadSubscriptions();
-  initSubscriptions();
+  init();
+  loadPosts();
   
   $("#btnFollowers").click(function(){
     $("#modalFollowers").modal();
@@ -129,7 +132,7 @@ function changeSubsState() {
 }
 
 function loadSubscriptions() {
-  $.ajax(`/api/subscriptions/@Model.User.Id`).done((response) => {
+  $.ajax(`/api/subscriptions/@Model.User.Id`).done(response => {
     let data = JSON.parse(response);
     let followersCount = data.followers.length;
     let followingCount = data.following.length;
@@ -195,14 +198,69 @@ function unsubscribe() {
   })
 }
 
-function initSubscriptions() {
-  let subButton = $("#subscribe_btn");
-  subButton.click(function(){
+function loadPosts() {
+  $.ajax(`/api/reviews/@Model.User.Id/${pageNumber}`).done(response => {
+      let data = JSON.parse(response);
+      let postsDiv = $("#postsDiv");
+      if (data.isNextBtn === true) 
+          $("#nextBtn").show();
+      else
+          $("#nextBtn").hide();
+      if (data.isBackBtn === true) 
+          $("#backBtn").show();
+      else
+          $("#backBtn").hide();
+      
+      pageNumber = data.currentPage;
+      
+      postsDiv.empty();
+      if (data.pageReviews.length === 0) {
+        postsDiv.append(`<p>There's no posts yet</p>`);
+      } else {
+        data.pageReviews.forEach(review => {
+          postsDiv.append(`
+            <div class="post-preview">
+                <div style="line-height: 1.5em; max-height: 3em; overflow: hidden">
+                    <h4>
+                        <a href="/review/${review.id}" style="color: black">
+                            ${review.title}
+                        </a>
+                    </h4>
+                </div>
+                <p class="post-meta">Posted by
+                    <a href="user/${review.authorId}">
+                        ${review.authorUserName}
+                    </a>
+                    ${new Date(review.date).toLocaleDateString()} on 
+                    <a href="/film/${review.filmId}">
+                        ${review.filmTitle}
+                    </a>
+                </p>
+            </div>
+            <hr>
+          `)
+        })
+      }
+    })
+}
+
+function init() {
+  $("#subscribe_btn").click(function(){
     if(subButton.hasClass("btn btn-outline-primary")) {
       subscribe()
     } else {
       unsubscribe()
     }
-  })
+  });
+  
+  $("#nextBtn").click(function() {
+    pageNumber++;
+    loadPosts();
+  });
+  
+  $("#backBtn").click(function() {
+    pageNumber--;
+    loadPosts();
+  });
 }
 </script>

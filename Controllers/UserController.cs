@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace IJustWatched.Controllers
         private readonly UserManager<User> _userManager;
         private User _currentUser;
         private bool _isCurrentUser;
-        private bool _isSubscription = false;
+        private bool _isSubscription;
 
         public UserController(IJustWatchedContext context, UserManager<User> userManager)
         {
@@ -61,18 +62,6 @@ namespace IJustWatched.Controllers
                 }
             }
 
-            var followers = _context.Subscriptions
-                .Where(subs => subs.SubscriptionUser.Id == _currentUser.Id)
-                .Include(subs => subs.SubscriberUser)
-                .Select(subs => subs.SubscriberUser)
-                .ToListAsync();
-            
-            var following = _context.Subscriptions
-                .Where(subs => subs.SubscriberUser.Id == _currentUser.Id)
-                .Include(subs => subs.SubscriptionUser)
-                .Select(subs => subs.SubscriptionUser)
-                .ToListAsync();
-
             var reviews = _context.Reviews
                 .Where(review => review.Author.Id == _currentUser.Id)
                 .Include(review => review.Author)
@@ -85,13 +74,55 @@ namespace IJustWatched.Controllers
                 IsCurrentUserPage = _isCurrentUser,
                 IsSubscription = _isSubscription,
                 User = _currentUser,
-                Followers = followers.Result,
-                FollowersCount = followers.Result.Count,
-                Following = following.Result,
-                FollowingCount = following.Result.Count,
                 Reviews = reviews.Result
             };
             return View(viewModel);
+        }
+
+        [Route("api/reviews/{userId}/{currentPage}")]
+        public async Task<JsonResult> LoadReviewsPage(string userId, int currentPage)
+        {
+            var isBackBtn = true;
+            var isNextBtn = true;
+            var reviewsCount = _context.Reviews.Count(r => r.Author.Id == userId);
+            
+            int maxPage = (int)Math.Ceiling(reviewsCount / 5.0);
+            if (currentPage > maxPage) currentPage = maxPage;
+            if (currentPage < 1) currentPage = 1;
+            
+            if (maxPage == 1)
+            {
+                isBackBtn = false;
+                isNextBtn = false;
+            }
+            else if (currentPage == maxPage)
+                isNextBtn = false;
+            else if (currentPage == 1)
+                isBackBtn = false;
+
+            var pageReviews = await _context.Reviews
+                .Where(r => r.Author.Id == userId)  
+                .OrderByDescending(r => r.CreationDateTime)
+                .Skip((currentPage - 1) * 5)
+                .Take(5)
+                .Select(r => new
+                {
+                    id = r.Id,
+                    authorId = r.Author.Id,
+                    authorUserName = r.Author.UserName,
+                    filmId = r.ReviewFilm.Id,
+                    filmTitle = r.ReviewFilm.Title,
+                    title = r.ReviewTitle,
+                    date = r.CreationDateTime
+                }).ToListAsync();
+
+            return Json(JsonConvert.SerializeObject(new
+            {
+                isBackBtn,
+                isNextBtn,
+                currentPage,
+                pageReviews
+            }));
         }
         
         [Route("api/subscriptions/{userId}")]
