@@ -1,4 +1,6 @@
 @model Review
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <div class="post-preview">
     <div style="line-height: 1.5em; max-height: 3em; overflow: hidden">
@@ -9,11 +11,11 @@
                 </a>
             </h4>
     </div>
-    <p class="post-meta">Posted by
+    <p class="post-meta">@Localizer["postedBy"]
         <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id">
             @Model.Author
         </a>
-        @Model.CreationDateTime.ToString("dd/MM/yyyy") on 
+        @Model.CreationDateTime.ToString("dd/MM/yyyy") @Localizer["on"]
         <a asp-controller="Film" asp-action="Index" asp-route-filmId="@Model.ReviewFilm.Id">
             @Model.ReviewFilm.Title
         </a>

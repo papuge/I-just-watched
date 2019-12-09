@@ -90,7 +90,7 @@ namespace IJustWatched.Controllers
             if (currentPage > maxPage) currentPage = maxPage;
             if (currentPage < 1) currentPage = 1;
             
-            if (maxPage == 1)
+            if (maxPage == 1 || maxPage == 0)
             {
                 isBackBtn = false;
                 isNextBtn = false;

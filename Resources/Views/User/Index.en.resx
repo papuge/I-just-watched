@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="posts">
+        <value>Posts</value>
+    </data>
+    <data name="postedBy">
+        <value>Posted by</value>
+    </data>
+    <data name="on">
+        <value>on</value>
+    </data>
+    <data name="changePhoto">
+        <value>Change photo</value>
+    </data>
+    <data name="back">
+        <value>← Back</value>
+    </data>
+    <data name="next">
+        <value>Next →</value>
+    </data>
+    <data name="followers">
+        <value>followers</value>
+    </data>
+    <data name="following">
+        <value>following</value>
+    </data>
+    <data name="subscribe">
+        <value>+ Subscribe</value>
+    </data>
+    <data name="unsubscribe">
+        <value>Unsubscribe</value>
+    </data>
+    <data name="noPosts">
+        <value>There's no posts yet</value>
+    </data>
+    <data name="listEmpty">
+        <value>List is empty</value>
+    </data>
+    <data name="followers1">
+        <value>Followers</value>
+    </data>
+    <data name="following1">
+        <value>Following</value>
+    </data>
+    <data name="close">
+        <value>Close</value>
+    </data>
+</root>

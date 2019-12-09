@@ -24,23 +24,7 @@ namespace IJustWatched.Controllers
         }
         public IActionResult Index()
         {
-            List<Review> feedReviews = null;
-            var currentUser = GetCurrentUserAsync().Result;
-            if (User.Identity.IsAuthenticated)
-            {
-                var subscriptions = _context.Subscriptions
-                    .Where(sub => sub.SubscriberUser.Id == currentUser.Id)
-                    .Select(sub => sub.SubscriptionUser);
-
-                feedReviews = _context.Reviews
-                    .Where(review => subscriptions.Contains(review.Author))
-                    .Include(review => review.Author)
-                    .Include(review => review.ReviewFilm)
-                    .Take(6)
-                    .OrderByDescending(review => review.CreationDateTime)
-                    .ToList();
-            }
-            return View(feedReviews);
+            return View();
         }
         
         [Route("api/feed/{currentPage}")]
@@ -65,7 +49,7 @@ namespace IJustWatched.Controllers
             if (currentPage > maxPage) currentPage = maxPage;
             if (currentPage < 1) currentPage = 1;
             
-            if (maxPage == 1)
+            if (maxPage == 1 || maxPage == 0)
             {
                 isBackBtn = false;
                 isNextBtn = false;

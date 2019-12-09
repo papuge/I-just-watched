@@ -1,4 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     
 
 </head>
@@ -25,18 +28,24 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Films" asp-action="Index">Films</a>
+                            <a class="nav-link" asp-area="" asp-controller="Films" asp-action="Index">
+                                @Localizer["films"]
+                            </a>
                         </li>
                         @if (User.IsInRole("admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
+                                <a class="nav-link" asp-area="" asp-controller="Roles" asp-action="Index">
+                                    @Localizer["roles"]
+                                </a>
                             </li>
                         }
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        <input class="form-control mr-sm-2" type="text" placeholder="@Localizer["search"]" aria-label="@Localizer["search"]">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -44,18 +53,18 @@
             {
                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" style="color: white">
-                     @* <img id="header_avatar" class="mr-2 img-profile rounded-circle" *@
-                     @*      src="" alt="" *@
-                     @*      width="40px" height="40px" style="object-fit: cover"> *@
                  </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <form method="post" asp-route="MyProfile" style="max-width: available">
-                        <input type="submit" value="Profile" class="text-gray-50" style="border: none; background: white;"/>
+                    <form method="post" asp-route="MyProfile" style="max-width: available" class="mb-2">
+                        <input type="submit" value="@Localizer["profile"]" class="text-gray-50" style="border: none; background: white;"/>
+                    </form>
+                    <form method="post" asp-route="MyProfile" style="max-width: available" class="mb-2">
+                        <input type="submit" value="@Localizer["lang"]" class="text-gray-50" style="border: none; background: white;"/>
                     </form>
                     <div class="dropdown-divider"></div>
                     <form method="post" asp-controller="Account" asp-action="Logoff" style="max-width: available">
-                        <input type="submit" value="Logout" class="text-gray-50" style="border: none; background: white;"/>
+                        <input type="submit" value="@Localizer["logout"]" class="text-gray-50" style="border: none; background: white;"/>
                     </form>
                 </div>
             } 

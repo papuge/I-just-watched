@@ -1,5 +1,6 @@
-@using Microsoft.AspNetCore.Http
 @model IJustWatched.Models.Review
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewBag.Title = "I Just Watched";
@@ -13,11 +14,11 @@
 
         <!-- Author -->
         <p class="lead">
-          by
+          @Localizer["by"]
           <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id">
               @Model.Author.UserName
           </a>
-          on <a asp-controller="Film" asp-action="Index" asp-route-filmId="@Model.ReviewFilm.Id">
+          @Localizer["on"] <a asp-controller="Film" asp-action="Index" asp-route-filmId="@Model.ReviewFilm.Id">
               @Model.ReviewFilm.Title
           </a>
         </p>
@@ -25,7 +26,7 @@
         <hr>
 
         <!-- Date/Time -->
-        <p>Posted on @Model.CreationDateTime.ToString("HH:mm dd/MM/yyyy")</p>
+        <p>@Localizer["postedOn"] @Model.CreationDateTime.ToString("HH:mm dd/MM/yyyy")</p>
 
         <hr>
         
@@ -40,12 +41,12 @@
         {
             <!-- Comments Form -->
             <div class="card my-4">
-                <h5 class="card-header">Leave a Comment:</h5>
+                <h5 class="card-header">@Localizer["leaveComment"]</h5>
                 <div class="card-body">
                     <div class="form-group">
                         <textarea id="commentContent" class="form-control" rows="3"></textarea>
                     </div>
-                    <input id="sendButton" type="button" class="btn btn-primary" value="Submit"/>
+                    <input id="sendButton" type="button" class="btn btn-primary" value="@Localizer["submit"]"/>
                 </div>
             </div>
         }

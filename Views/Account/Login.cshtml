@@ -1,4 +1,6 @@
 @model IJustWatched.ViewModels.LoginViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewBag.Title = "Login";
@@ -26,7 +28,7 @@
     <form class="form-group m-5 p-5" method="post" asp-controller="Account" asp-action="Login"
           asp-route-returnUrl="@Model.ReturnUrl">
         <div class="ml-2 mr-2 mt-4 text-center"></div>
-        <h2 class="h3 font-weight-normal">Please sign in</h2>
+        <h2 class="h3 font-weight-normal">@Localizer["please"]</h2>
         <div asp-validation-summary="ModelOnly" style="color:red"></div>
         <div class="mt-3 form-label-group">
             <label asp-for="EmailOrUsername" for="inputEmail" class="sr-only"></label>
@@ -44,11 +46,13 @@
             <input asp-for="RememberMe" />
             <label asp-for="RememberMe"></label><br />
         </div>
-        <button class="mt-3 btn btn-lg btn-primary btn-block" type="submit" width="300px">Sign in</button>
+        <button class="mt-3 btn btn-lg btn-primary btn-block" type="submit" width="300px">
+            @Localizer["signIn"]
+        </button>
     </form>
-    <p>Don't have an account?</p>
+    <p>@Localizer["dont"]</p>
       <div class="m-1"></div>
-    <p><a asp-controller="Account" asp-action="Register">Sign Up</a></p>
+    <p><a asp-controller="Account" asp-action="Register">@Localizer["signUp"]</a></p>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
 </div>

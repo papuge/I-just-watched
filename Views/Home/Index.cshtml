@@ -1,28 +1,30 @@
-﻿@model List<Review>
+﻿@model object
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Home Page";
 }
 
 @if(User.Identity.IsAuthenticated)
 {
-   <h3 style="text-align: center">Feed</h3>
+   <h3 style="text-align: center">@Localizer["feed"]</h3>
    <div class="col-lg-auto col-md-10 mx-auto">
        <div id="feedDiv">
        </div>
 
        <!-- Pager -->
        <div class="clearfix">
-           <button id="backBtn" class="btn btn-primary float-left">← Back</button>
-           <button id="nextBtn" class="btn btn-primary float-right">Next →</button>
+           <button id="backBtn" class="btn btn-primary float-left">@Localizer["back"]</button>
+           <button id="nextBtn" class="btn btn-primary float-right">@Localizer["next"]</button>
        </div>
    </div>
 }
 else
 {
    <div class="mt-5" style="text-align: center">
-       <a asp-controller="Account" asp-action="Login">Login</a>
+       <a asp-controller="Account" asp-action="Login">@Localizer["login"]</a>
        <hr/>
-       <a asp-controller="Account" asp-action="Register">Sign up</a>    
+       <a asp-controller="Account" asp-action="Register">@Localizer["register"]</a>    
    </div>
 }
 
@@ -51,7 +53,7 @@ function loadPosts() {
       
       feedDiv.empty();
       if (data.pageReviews.length === 0) {
-        feedDiv.append(`<p>There's no posts yet</p>`);
+        feedDiv.append(`<h5>@Localizer["noPosts"]</h5>`);
       } else {
         data.pageReviews.forEach(review => {
           feedDiv.append(`
@@ -63,11 +65,11 @@ function loadPosts() {
                         </a>
                     </h4>
                 </div>
-                <p class="post-meta">Posted by
+                <p class="post-meta"> @Localizer["postedBy"]
                     <a href="user/${review.authorId}">
                         ${review.authorUserName}
                     </a>
-                    ${new Date(review.date).toLocaleDateString()} on 
+                    ${new Date(review.date).toLocaleDateString()} @Localizer["on"]
                     <a href="/film/${review.filmId}">
                         ${review.filmTitle}
                     </a>

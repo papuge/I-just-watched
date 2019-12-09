@@ -1,4 +1,6 @@
 @model IJustWatched.ViewModels.ProfileViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewBag.Title = "title";
@@ -14,7 +16,9 @@
         {
           <form method="post" asp-controller="User" asp-action="UploadFile" enctype="multipart/form-data">
             <input name="uploadedFile" type="file" style="word-wrap: normal; width: 180px; overflow: -moz-scrollbars-horizontal" accept=".jpg, .jpeg, .png"/>
-            <button type="submit" class="btn-sm mt-2 mb-2 btn-outline-dark">Change photo</button>
+            <button type="submit" class="btn-sm mt-2 mb-2 btn-outline-dark">
+              @Localizer["changePhoto"]
+            </button>
           </form>
           <hr/>
         }
@@ -28,11 +32,15 @@
           <hr/>
           @if (Model.IsSubscription)
           {
-            <button id="subscribe_btn" class="btn btn-primary" style="outline: none">Unsubscribe</button>
+            <button id="subscribe_btn" class="btn btn-primary" style="outline: none">
+              @Localizer["unsubscribe"]
+            </button>
           }
           else
           {
-            <button id="subscribe_btn" class="btn btn-outline-primary" style="outline: none">+ Subscribe</button>
+            <button id="subscribe_btn" class="btn btn-outline-primary" style="outline: none">
+              @Localizer["subscribe"]
+            </button>
           }
         }
       </div>
@@ -41,21 +49,21 @@
   <div class="col-sm-9">
        @if (Model.Reviews.Count != 0)
         {
-          <h3 style="text-align: center">Posts</h3>
+          <h3 style="text-align: center">@Localizer["posts"]</h3>
           <div class="col-lg-auto col-md-10 mx-auto">
             <div id="postsDiv">
             </div>
 
             <!-- Pager -->
             <div class="clearfix">
-              <button id="backBtn" class="btn btn-primary float-left">← Back</button>
-              <button id="nextBtn" class="btn btn-primary float-right">Next →</button>
+              <button id="backBtn" class="btn btn-primary float-left">@Localizer["back"]</button>
+              <button id="nextBtn" class="btn btn-primary float-right">@Localizer["next"]</button>
             </div>
           </div>
         }
         else
         {
-            <h4 style="text-align: center">There's no posts yet</h4>
+            <h4 style="text-align: center">@Localizer["noPosts"]</h4>
         }
   </div>
 </div>
@@ -67,14 +75,14 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Followers</h4>
+        <h4 class="modal-title">@Localizer["followers1"]</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body" id="followersModalBody" style="overflow-y:auto">
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["close"]</button>
       </div>
     </div>
   </div>
@@ -87,13 +95,13 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Following</h4>
+          <h4 class="modal-title">@Localizer["following1"]</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body" id="followingModalBody" style="overflow-y:auto">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["close"]</button>
         </div>
       </div>
     </div>
@@ -123,11 +131,11 @@ function changeSubsState() {
   if(subs_button.hasClass("btn btn-outline-primary")) {
     subs_button.removeClass("btn btn-outline-primary");
     subs_button.addClass("btn btn-primary");
-    subs_button.text("Unsubscribe");
+    subs_button.text(`@Localizer["unsubscribe"]`);
   } else {
     subs_button.removeClass("btn btn-primary");
     subs_button.addClass("btn btn-outline-primary");
-    subs_button.text("+ Subscribe");
+    subs_button.text(`@Localizer["subscribe"]`);
   }
 }
 
@@ -142,10 +150,10 @@ function loadSubscriptions() {
     let followingModalBody = $("#followingModalBody");
     followingModalBody.empty();
     
-    $("#btnFollowers").text(followersCount + " followers");
-    $("#btnFollowing").text(followingCount + " following");
+    $("#btnFollowers").text(followersCount + ` @Localizer["followers"]`);
+    $("#btnFollowing").text(followingCount + ` @Localizer["following"]`);
     if (followersCount === 0) {
-      followerModalBody.append("<p>List is empty</p>");
+      followerModalBody.append(`<p>@Localizer["listEmpty"]</p>`);
     } else {
       data.followers.forEach(follower => {
          followerModalBody.append(
@@ -164,7 +172,7 @@ function loadSubscriptions() {
     }
     
     if (followingCount === 0) {
-      followingModalBody.append("<p>List is empty</p>");
+      followingModalBody.append(`<p>@Localizer["listEmpty"]</p>`);
     } else {
       data.following.forEach(following => {
          followingModalBody.append(
@@ -215,7 +223,7 @@ function loadPosts() {
       
       postsDiv.empty();
       if (data.pageReviews.length === 0) {
-        postsDiv.append(`<p>There's no posts yet</p>`);
+        postsDiv.append(`<p>@Localizer["noPosts"]</p>`);
       } else {
         data.pageReviews.forEach(review => {
           postsDiv.append(`
@@ -227,11 +235,11 @@ function loadPosts() {
                         </a>
                     </h4>
                 </div>
-                <p class="post-meta">Posted by
+                <p class="post-meta">@Localizer["postedBy"]
                     <a href="user/${review.authorId}">
                         ${review.authorUserName}
                     </a>
-                    ${new Date(review.date).toLocaleDateString()} on 
+                    ${new Date(review.date).toLocaleDateString()} @Localizer["on"]
                     <a href="/film/${review.filmId}">
                         ${review.filmTitle}
                     </a>
@@ -246,7 +254,7 @@ function loadPosts() {
 
 function init() {
   $("#subscribe_btn").click(function(){
-    if(subButton.hasClass("btn btn-outline-primary")) {
+    if($("#subscribe_btn").hasClass("btn btn-outline-primary")) {
       subscribe()
     } else {
       unsubscribe()

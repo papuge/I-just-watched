@@ -1,4 +1,6 @@
 @model IEnumerable<IJustWatched.Models.Film>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     ViewBag.Title = "title";
@@ -7,7 +9,7 @@
 
 <body>
 <div class="album py-5 bg-light">
-    <h2 style="text-align: center">Films</h2>    
+    <h2 style="text-align: center">@Localizer["films"]</h2>    
     <div class="container">
         <div class="row">
             @foreach (var film in Model)
