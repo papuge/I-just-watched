@@ -3,36 +3,94 @@
     ViewData["Title"] = "Home Page";
 }
 
-   @if(User.Identity.IsAuthenticated)
-   {
-       <script>
-            $("#header_avatar").attr("src","@ViewData["CurrentUserPic"]");
-       </script>
-       @if (Model.Count != 0)
-       {
-           <h3 style="text-align: center">Feed</h3>
-           <div class="col-lg-auto col-md-10 mx-auto">
-               @foreach (var post in Model)
-               {
-                   <partial name="_ReviewListItem" for="@post"/>
-               }
-               
-               <!-- Pager -->
-               <div class="clearfix">
-                   <a class="btn btn-primary float-right" href="#">Older Posts →</a>
-               </div>
-           </div>
-       }
-       else
-       {
-           <h4 style="text-align: center">There's no new posts yet</h4>
-       }
-   }
-   else
-   {
-       <div class="mt-5" style="text-align: center">
-           <a asp-controller="Account" asp-action="Login">Login</a>
-           <hr/>
-           <a asp-controller="Account" asp-action="Register">Sign up</a>    
+@if(User.Identity.IsAuthenticated)
+{
+   <h3 style="text-align: center">Feed</h3>
+   <div class="col-lg-auto col-md-10 mx-auto">
+       <div id="feedDiv">
        </div>
-   }
+
+       <!-- Pager -->
+       <div class="clearfix">
+           <button id="backBtn" class="btn btn-primary float-left">← Back</button>
+           <button id="nextBtn" class="btn btn-primary float-right">Next →</button>
+       </div>
+   </div>
+}
+else
+{
+   <div class="mt-5" style="text-align: center">
+       <a asp-controller="Account" asp-action="Login">Login</a>
+       <hr/>
+       <a asp-controller="Account" asp-action="Register">Sign up</a>    
+   </div>
+}
+
+
+<script>
+
+var pageNumber = 1;
+
+$(document).ready(function(){ 
+    loadPosts();
+    init();
+});
+
+function loadPosts() {
+  $.ajax(`/api/feed/${pageNumber}`).done(response => {
+      let data = JSON.parse(response);
+      let feedDiv = $("#feedDiv");
+      if (data.isNextBtn === true) 
+          $("#nextBtn").show();
+      else
+          $("#nextBtn").hide();
+      if (data.isBackBtn === true) 
+          $("#backBtn").show();
+      else
+          $("#backBtn").hide();
+      
+      pageNumber = data.currentPage;
+      
+      feedDiv.empty();
+      if (data.pageReviews.length === 0) {
+        feedDiv.append(`<p>There's no posts yet</p>`);
+      } else {
+        data.pageReviews.forEach(review => {
+          feedDiv.append(`
+            <div class="post-preview">
+                <div style="line-height: 1.5em; max-height: 3em; overflow: hidden">
+                    <h4>
+                        <a href="/review/${review.id}" style="color: black">
+                            ${review.title}
+                        </a>
+                    </h4>
+                </div>
+                <p class="post-meta">Posted by
+                    <a href="user/${review.authorId}">
+                        ${review.authorUserName}
+                    </a>
+                    ${new Date(review.date).toLocaleDateString()} on 
+                    <a href="/film/${review.filmId}">
+                        ${review.filmTitle}
+                    </a>
+                </p>
+            </div>
+            <hr>
+          `)
+        })
+      }
+    })
+}
+
+function init() {  
+  $("#nextBtn").click(function() {
+    pageNumber++;
+    loadPosts();
+  });
+  
+  $("#backBtn").click(function() {
+    pageNumber--;
+    loadPosts();
+  });
+}
+</script>
