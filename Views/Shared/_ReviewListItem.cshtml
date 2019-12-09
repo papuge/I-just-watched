@@ -1,4 +1,5 @@
 @model Review
+@using System.Globalization
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
@@ -15,7 +16,7 @@
         <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.Author.Id">
             @Model.Author
         </a>
-        @Model.CreationDateTime.ToString("dd/MM/yyyy") @Localizer["on"]
+        @Model.CreationDateTime.ToString(CultureInfo.CurrentCulture) @Localizer["on"]
         <a asp-controller="Film" asp-action="Index" asp-route-filmId="@Model.ReviewFilm.Id">
             @Model.ReviewFilm.Title
         </a>

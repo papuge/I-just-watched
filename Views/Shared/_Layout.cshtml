@@ -59,10 +59,10 @@
                     <form method="post" asp-route="MyProfile" style="max-width: available" class="mb-2">
                         <input type="submit" value="@Localizer["profile"]" class="text-gray-50" style="border: none; background: white;"/>
                     </form>
-                    <form method="post" asp-route="MyProfile" style="max-width: available" class="mb-2">
-                        <input type="submit" value="@Localizer["lang"]" class="text-gray-50" style="border: none; background: white;"/>
-                    </form>
-                    <div class="dropdown-divider"></div>
+                    <button id="langBtn" class="text-gray-50" style="border: none; background: white;">
+                        @Localizer["lang"]
+                    </button>
+                <div class="dropdown-divider"></div>
                     <form method="post" asp-controller="Account" asp-action="Logoff" style="max-width: available">
                         <input type="submit" value="@Localizer["logout"]" class="text-gray-50" style="border: none; background: white;"/>
                     </form>
@@ -75,10 +75,30 @@
             }
         </nav>
     </header>
-    <div class="container">
+<div class="container">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
+</div>
+
+<!-- Modal Languages -->
+<div class="modal fade" id="modalLang" role="dialog">
+    <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="overflow-y:auto;">
+                <partial name="_SelectLanguage"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["close"]</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="border-top footer text-muted">
@@ -88,6 +108,16 @@
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function(){
+  
+    $("#langBtn").click(function(){
+      $("#modalLang").modal();
+    });
+})
+</script>
+
 @RenderSection("Scripts", required: false)
 </body>
 </html>

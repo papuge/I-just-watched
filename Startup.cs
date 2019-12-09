@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Westwind.AspNetCore.Markdown;
 
 
@@ -31,14 +32,6 @@ namespace IJustWatched
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for 
-                // non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-            
             services.AddDbContext<IJustWatchedContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("IJustWatchedContext")));
             
@@ -55,6 +48,19 @@ namespace IJustWatched
                 .AddDataAnnotationsLocalization()
                 .AddViewLocalization()
                 .AddApplicationPart(typeof(MarkdownPageProcessorMiddleware).Assembly);
+            
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("ru")
+                };
+ 
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
             
             // add here your route constraint   
             services.Configure<RouteOptions>(routeOptions =>   
@@ -77,21 +83,11 @@ namespace IJustWatched
                 app.UseHsts();
             }
             
-            var supportedCultures = new[]
-            {
-                new CultureInfo("en"),
-                new CultureInfo("ru")
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("ru"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMarkdown();
             

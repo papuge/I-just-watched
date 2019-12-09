@@ -1,3 +1,4 @@
+@using System.Globalization
 @model IEnumerable<Comment>
 
 @foreach (var comment in @Model)
@@ -11,7 +12,7 @@
                     @comment.Author
                 </a>
             </h5>
-            <p>@comment.CreationDateTime.ToString("HH:mm dd/MM/yyyy")<p/>
+            <p>@comment.CreationDateTime.ToString(CultureInfo.CurrentCulture)<p/>
             <p>
                 @comment.Content
             </p>
