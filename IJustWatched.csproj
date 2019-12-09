@@ -30,6 +30,10 @@
       <_ContentIncludedByDefault Remove="Pages\FilmsContoller\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Review\Components\Comment\_Comments.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Comment\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\signalr\dist\browser\signalr.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\signalr\dist\browser\signalr.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\signalr\dist\browser\signalr.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\signalr\dist\browser\signalr.min.js" />
     </ItemGroup>
 
 

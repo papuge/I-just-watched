@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using IJustWatched.Data;
+using IJustWatched.Hubs;
 using IJustWatched.Models;
 using IJustWatched.Models.CustomConstraits;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,8 @@ namespace IJustWatched
             
             services.AddMarkdown();
             
+            services.AddSignalR();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddApplicationPart(typeof(MarkdownPageProcessorMiddleware).Assembly);
             
@@ -74,6 +77,11 @@ namespace IJustWatched
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMarkdown();
+            
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<CommentHub>("/comments");
+            });
 
             app.UseMvc(routes =>
             {
