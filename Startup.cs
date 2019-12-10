@@ -103,7 +103,7 @@ namespace IJustWatched
                     new {controller="Home", action = "Index"});
                 
                 routes.MapRoute(
-                    name: "Feed", template: "feed/",
+                    name: "Feed", template: "feeds/",
                     new {controller="Home", action = "Index"});
                 
                 routes.MapRoute(

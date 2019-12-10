@@ -17,11 +17,11 @@
           <button id="editBtn" class="btn-xs btn-dark mt-2 mb-2">
             <i class="fa fa-pen"></i>
           </button>
-          <form id="photoForm" method="post" asp-controller="User" asp-action="UploadFile">
+          <form id="photoForm" method="post" asp-controller="User" asp-action="UploadFile" enctype="multipart/form-data">
             <input name="uploadedFile" type="file" style="word-wrap: normal; width: 180px; overflow: -moz-scrollbars-horizontal" accept=".jpg, .jpeg, .png"/>
-            <a type="submit" class="btn btn-outline-dark mt-2 mb-2">
+            <button type="submit" class="btn btn-outline-dark mt-2 mb-2">
               @Localizer["changePhoto"]
-            </a>
+            </button>
           </form>
           <hr/>
         }
