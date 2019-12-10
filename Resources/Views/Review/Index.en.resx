@@ -33,4 +33,7 @@
     <data name="submit">
         <value>Submit</value>
     </data>
+    <data name="delete">
+        <value>Delete</value>
+    </data>
 </root>

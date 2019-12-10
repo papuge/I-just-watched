@@ -36,6 +36,12 @@
         <markdown>@Model.Content</markdown>
 
         <hr>
+        
+        @if (User.IsInRole("moderator") || User.Identity.Name == Model.Author.UserName)
+        {
+            <a asp-controller="Review" asp-action="DeleteReview" asp-route-id="@Model.Id"
+                    class="btn btn-outline-danger">@Localizer["delete"]</a>
+        }
 
         @if (User.Identity.IsAuthenticated)
         {

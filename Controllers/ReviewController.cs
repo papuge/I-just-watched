@@ -60,22 +60,48 @@ namespace IJustWatched.Controllers
                 };
                 _context.Add(review);
                 _context.SaveChanges();
-                
-                var tags = Regex.Split(viewModel.Tags, @"\s+").Select(tag => tag.Trim('#').ToLower());
-                foreach (var tagString in tags)
+
+                if (viewModel.Tags != null)
                 {
-                    var tag = _context.Tags.FirstOrDefault(exTag => exTag.TagText == tagString);
-                    if (tag is null)
+                    var tags = Regex.Split(viewModel.Tags, @"\s+")
+                        .Where(tag => tag != "")
+                        .Select(tag => tag.Trim('#').ToLower());
+                    foreach (var tagString in tags)
                     {
-                        tag = new Tag {TagText = tagString};
-                        _context.Add(tag);
+                        var tag = _context.Tags.FirstOrDefault(exTag => exTag.TagText == tagString);
+                        if (tag is null)
+                        {
+                            tag = new Tag {TagText = tagString};
+                            _context.Add(tag);
+                        }
+                        _context.Add(new TagReview {TaggedReview = review, TagInReview = tag});
+                        _context.SaveChanges();
                     }
-                    _context.Add(new TagReview {TaggedReview = review, TagInReview = tag});
-                    _context.SaveChanges();
                 }
                 return RedirectToAction("Index", "Review", new { reviewId = review.Id});
             }
             return View(viewModel);
+        }
+        
+        public async Task<IActionResult> DeleteReview(int id)
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var roles = await _userManager.GetRolesAsync(currentUser);
+            var review = _context.Reviews
+                .Include(r => r.Author)
+                .FirstOrDefault(r => r.Id == id);
+            var comments = _context.Comments
+                .Where(c => c.CommentedReview.Id == id);
+            var tagReviews = _context.TagsReviews
+                .Where(tr => tr.TaggedReview.Id == id);
+            if (review != null && (currentUser.Id == review.Author.Id || roles.Contains("moderator")))
+            {
+                _context.Comments.RemoveRange(comments);
+                _context.TagsReviews.RemoveRange(tagReviews);
+                _context.Reviews.Remove(review);
+                _context.SaveChanges();
+            }
+            return Redirect($"/");
         }
         
         public async Task<IActionResult> DeleteComment(int id)

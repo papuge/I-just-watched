@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using IJustWatched.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -96,6 +97,36 @@ namespace IJustWatched.Controllers
             );
  
             return LocalRedirect(returnUrl);
+        }
+
+        public async Task<IActionResult> Search(string query)
+        {
+            if (query != null)
+            {
+                var words = Regex.Split(query, @"\s+")
+                    .Where(word => word != "")
+                    .Select(word => word.Trim('#').ToLower());
+                var tags = _context.Tags.Where(tag => words.Contains(tag.TagText));
+                var reviewsByTag = await _context.TagsReviews
+                    .Include(tr => tr.TagInReview)
+                    .Include(tr => tr.TaggedReview)
+                    .Where(tr => tags.Contains(tr.TagInReview))
+                    .Select(tr => tr.TaggedReview)
+                    .Include(r => r.Author)
+                    .Include(r => r.ReviewFilm)
+                    .ToListAsync();
+                
+                var reviewsByFilm = await _context.Reviews
+                    .Include(r => r.Author)
+                    .Include(r => r.ReviewFilm)
+                    .Where(r => words.Contains(r.ReviewFilm.Title, StringComparer.OrdinalIgnoreCase))
+                    .ToListAsync();
+
+                var result = reviewsByTag.Union(reviewsByFilm).ToList();
+                return View(result);
+            }
+
+            return Redirect("/");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

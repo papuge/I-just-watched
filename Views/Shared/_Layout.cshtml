@@ -41,9 +41,10 @@
                             </li>
                         }
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="@Localizer["search"]" aria-label="@Localizer["search"]">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Home" asp-action="Search">
+                        <input id="searchInput" class="form-control mr-sm-2" name="query" type="text" 
+                               placeholder="@Localizer["search"]" aria-label="@Localizer["search"]">
+                        <button id="searchBtn" class="btn btn-secondary my-2 my-sm-0" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </form>
@@ -114,6 +115,19 @@ $(document).ready(function(){
   
     $("#langBtn").click(function(){
       $("#modalLang").modal();
+    });
+    
+    $('#searchInput').on('keyup', function() {
+    let empty = false;
+    
+    $('#searchInput').each(function() {
+      empty = $(this).val().length === 0;
+    });
+    
+    if (empty)
+      $('#searchBtn').attr('disabled', 'disabled');
+    else
+      $('#searchBtn').attr('disabled', false);
     });
 })
 </script>

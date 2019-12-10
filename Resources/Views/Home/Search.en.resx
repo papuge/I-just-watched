@@ -18,22 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="postedOn">
-        <value>Опубликовано</value>
+    <data name="results">
+        <value>Results</value>
     </data>
-    <data name="by">
-        <value></value>
-    </data>
-    <data name="on">
-        <value>на</value>
-    </data>
-    <data name="leaveComment">
-        <value>Оставьте комментарий</value>
-    </data>
-    <data name="submit">
-        <value>Отправить</value>
-    </data>
-    <data name="delete">
-        <value>Удалить</value>
+    <data name="notFound">
+        <value>No found reviews</value>
     </data>
 </root>
