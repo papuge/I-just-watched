@@ -63,4 +63,7 @@
     <data name="close">
         <value>Close</value>
     </data>
+    <data name="edit">
+        <value>Edit</value>
+    </data>
 </root>

@@ -14,7 +14,10 @@
       <div class="card-body">
         @if (Model.IsCurrentUserPage)
         {
-          <form method="post" asp-controller="User" asp-action="UploadFile" enctype="multipart/form-data">
+          <button id="editBtn" class="btn-xs btn-dark mt-2 mb-2">
+            <i class="fa fa-pen"></i>
+          </button>
+          <form id="photoForm" method="post" asp-controller="User" asp-action="UploadFile">
             <input name="uploadedFile" type="file" style="word-wrap: normal; width: 180px; overflow: -moz-scrollbars-horizontal" accept=".jpg, .jpeg, .png"/>
             <a type="submit" class="btn btn-outline-dark mt-2 mb-2">
               @Localizer["changePhoto"]
@@ -116,6 +119,7 @@ $(document).ready(function(){
   loadSubscriptions();
   init();
   loadPosts();
+  $("#photoForm").hide();
   
   $("#btnFollowers").click(function(){
     $("#modalFollowers").modal();
@@ -123,6 +127,11 @@ $(document).ready(function(){
   
   $("#btnFollowing").click ( function() {
     $("#modalFollowing").modal();   
+  });
+  
+  $("#editBtn").click ( function() {
+    $("#editBtn").hide();   
+    $("#photoForm").show();
   });
 });
 

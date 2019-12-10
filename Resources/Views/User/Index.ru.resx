@@ -63,4 +63,7 @@
     <data name="close">
         <value>Закрыть</value>
     </data>
+    <data name="edit">
+        <value>Изменить</value>
+    </data>
 </root>
