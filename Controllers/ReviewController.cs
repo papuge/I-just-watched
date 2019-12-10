@@ -78,6 +78,23 @@ namespace IJustWatched.Controllers
             return View(viewModel);
         }
         
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var roles = await _userManager.GetRolesAsync(currentUser);
+            var comment = _context.Comments
+                .Include(c => c.CommentedReview)
+                .Include(c => c.Author)
+                .FirstOrDefault(c => c.Id == id);
+            var reviewId = comment?.CommentedReview.Id;
+            if (comment != null && (currentUser.Id == comment.Author.Id || roles.Contains("moderator")))
+            {
+                _context.Comments.Remove(comment);
+                _context.SaveChanges();
+            }
+            return Redirect($"/review/{reviewId}");
+        }
+        
         private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         
     }

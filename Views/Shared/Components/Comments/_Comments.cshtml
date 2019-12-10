@@ -1,7 +1,7 @@
 @using System.Globalization
 @model IEnumerable<Comment>
 
-@foreach (var comment in @Model)
+@foreach (var comment in Model)
 {
     <div class="media mb-4">
         <img class="d-flex mr-3 rounded-circle" src="@comment.Author.PhotoUrl" alt="" style="width: 3em; height: 3em; object-fit: cover">
@@ -12,7 +12,21 @@
                     @comment.Author
                 </a>
             </h5>
-            <p>@comment.CreationDateTime.ToString(CultureInfo.CurrentCulture)<p/>
+            @if (User.IsInRole("moderator") || User.Identity.Name == comment.Author.UserName)
+            {
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <p>@comment.CreationDateTime.ToString(CultureInfo.CurrentCulture)<p/>
+                    </div>
+                    <div class="col-3">
+                        <a href="/deleteComment/@comment.Id" type="button" class="close">&times;</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>@comment.CreationDateTime.ToString(CultureInfo.CurrentCulture)</p>    
+            }
             <p>
                 @comment.Content
             </p>

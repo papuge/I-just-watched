@@ -147,6 +147,10 @@ namespace IJustWatched
                     new {controller="User", action="Unsubscribe" });
                 
                 routes.MapRoute(
+                    name: "DeleteComment", template: "deleteComment/{id:int}",
+                    new {controller="Review", action="DeleteComment" });
+                
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 
