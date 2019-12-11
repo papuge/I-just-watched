@@ -1,14 +1,4 @@
 # I Just Watched
-A website for sharing your impressions on films and series and explore other reviews.  
+A website for sharing your impressions on films and series and explore other reviews. Explore, write articles and discuss!
 
-## Лабораторная 1  
-Цели:
-- Для выбранной темы проекта разработать функциональные требования и общую архитектуру приложения.
-- Разработать классы, представляющие доменную модель.
-- Разработать контроллеры, позволяющие совершать базовые операции с доменной моделью. 
-
-## Лабораторная работа №2  
-Цели:  
-- дописать контроллеры (UserController, FilmController, CommentController)
-- добавить две модели для связи пользователя с подписками и с избранными статьями
-- использование Layouts и различных представлений
+Made by ASP.NET Core, also using ajax and siganlR.
